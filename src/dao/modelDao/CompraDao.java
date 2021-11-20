@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package src.dao.modelDao;
+package dao.modelDao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,7 +28,7 @@ public class CompraDao {
             Conexao conexao = new Conexao();
             String sql = " insert into unidades(id, unidade) values (null,?)";
             PreparedStatement pre = conexao.conn.prepareStatement(sql);
-            pre.setString(1, unidade.getUnidade());
+           // pre.setString(1, unidade.getUnidade());
             
             pre.executeUpdate();
             conexao.close();

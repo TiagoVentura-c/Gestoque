@@ -3,13 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao.modelDao;
+package controller.Itens;
 
 /**
  *
- * @author tiago
+ * @author Tiago Ventura
  */
-public interface ModelDao {
+public class ItensCotroller {
+
+    
+    public ItensCotroller() {
+        
+    }
+    
     
     
 }

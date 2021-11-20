@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package src.dao.modelDao;
+package dao.modelDao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import src.dao.Conexao;
+import src.dao.modelDao.UnidadeDao;
 import src.model.Item;
 import src.model.Unidade;
 

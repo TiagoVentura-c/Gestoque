@@ -1,4 +1,4 @@
-package src.model;
+package model;
 
 public class Factura {
     private int id;

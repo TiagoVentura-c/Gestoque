@@ -1,11 +1,11 @@
-package src.model;
+package model;
 
 import sun.util.resources.LocaleData;
 
 public class Compra {
     private int id;
-    private int id_venda;
-    private int id_item;
+    private Venda venda;
+    private Item item;
     private int quantidade;
     private LocaleData data;
 
@@ -17,20 +17,20 @@ public class Compra {
         this.id = id;
     }
 
-    public int getId_venda() {
-        return id_venda;
+    public Venda getVenda() {
+        return venda;
     }
 
-    public void setId_venda(int id_venda) {
-        this.id_venda = id_venda;
+    public void setVenda(Venda venda) {
+        this.venda = venda;
     }
 
-    public int getId_item() {
-        return id_item;
+    public Item getItem() {
+        return item;
     }
 
-    public void setId_item(int id_item) {
-        this.id_item = id_item;
+    public void setItem(Item item) {
+        this.item = item;
     }
 
     public int getQuantidade() {

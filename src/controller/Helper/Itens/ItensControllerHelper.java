@@ -1,13 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller.Helper.Itens;
 
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import src.model.Item;
+import model.Categoria;
+
+import model.Item;
 import view.TelaPrincipal;
 
 /**
@@ -30,12 +27,24 @@ public class ItensControllerHelper {
             tableModel.addRow(new Object[]{
                 item.getDescricao(),
                 item.getCodigo(),
-                item.getId_categoria(),
+                item.getCategoria().getCategoria(),
                 item.getPreco(),
-                item.getId_unidade()
+                item.getUnidade().getUnidade()
              } );
-        }
+        }        
+    }
+
+    public String[] buscar() {
+        String[] s = new String[2];
         
+        s[0] = view.getjTextField_Itens_Descricao().getText().toString();
+        s[1] = view.getjTextField_Itens_Codigo().getText().toString();
+        
+        return s;
+    }
+
+    public void preencherTabelaBack(List<Item> items) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

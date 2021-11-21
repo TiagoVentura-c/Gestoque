@@ -12,10 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import model.Categoria;
+import model.Item;
+import model.Unidade;
 import src.dao.Conexao;
-import dao.modelDao.UnidadeDao;
-import src.model.Item;
-import src.model.Unidade;
 
 /**
  *
@@ -27,18 +28,18 @@ public class ItemDao {
         
         Item item = new Item();
         item.setCodigo("AL03");
-        item.setId_categoria(1);
+       // item.setId_categoria(1);
         item.setPreco(8300);
         item.setDescricao("Ketchup");
-        item.setId_unidade(3);
+       // item.setId_unidade(3);
         
         //inserir(item);
         
-        /*
-        List<Item> items = listar();
+        /**/
+        List<Item> items = buscar("codigo","A");
         
         for(Item i: items)
-            System.out.printf("id = %d, item = %s\n", i.getId(), i.getDescricao());*/
+            System.out.printf("id = %d, item = %s\n", i.getId(), i.getDescricao());
         
     }
     
@@ -52,10 +53,10 @@ public class ItemDao {
             PreparedStatement pre = conexao.conn.prepareStatement(sql);
             
             pre.setString(1, item.getCodigo());
-            pre.setInt(2, item.getId_categoria());
+            pre.setInt(2, item.getCategoria().getId());
             pre.setDouble(3, item.getPreco());
             pre.setString(4, item.getDescricao());
-            pre.setInt(5, item.getId_unidade());
+            pre.setInt(5, item.getUnidade().getId());
             
             pre.executeUpdate();
             conexao.close();
@@ -80,15 +81,21 @@ public class ItemDao {
         
     }
     
-    public static List<Item> buscar(String codigo){
+    public static List<Item> buscar(String nomeColuna, String codigo){
         List<Item> items = new ArrayList<>();
+        Unidade unidade = new Unidade();
+        Categoria categoria = new Categoria();
+
+        UnidadeDao unidadeDao = new UnidadeDao();
+        CategoriaDao categoriaDao= new CategoriaDao();
         
         try {
             Conexao conexao = new Conexao();
-            String sql = "select * from items where codigo like ?";
-            PreparedStatement pre = conexao.conn.prepareStatement(sql);
-            pre.setString(1, "'%"+ codigo+"%'");
+            String sql = "select * from items where "+nomeColuna+" like ?";
             
+            PreparedStatement pre = conexao.conn.prepareStatement(sql);
+            //pre.setString(1, "'"+nomeColuna+"'");
+            pre.setString(1, "%"+codigo+"%");            
             
             ResultSet rs = pre.executeQuery();
             
@@ -97,11 +104,15 @@ public class ItemDao {
                 
                 item.setId(rs.getInt("id"));
                 item.setCodigo(rs.getString("codigo"));
-                item.setId_categoria(rs.getInt("id_categoria"));
                 item.setPreco(rs.getDouble("preco"));
                 item.setDescricao(rs.getString("descricao"));
-                item.setId_unidade(rs.getInt("id_unidade"));
-                
+
+                unidade = unidadeDao.buscar(rs.getInt("id_unidade"));
+                categoria = categoriaDao.buscar(rs.getInt("id_categoria"));
+
+                item.setUnidade(unidade);
+                item.setCategoria(categoria);
+
                 items.add(item);
             }
             
@@ -122,10 +133,10 @@ public class ItemDao {
             PreparedStatement pre = conexao.conn.prepareStatement(sql);
             
             pre.setString(1, item.getCodigo());
-            pre.setInt(2, item.getId_categoria());
+            //pre.setInt(2, item.getId_categoria());
             pre.setDouble(3, item.getPreco());
             pre.setString(4, item.getDescricao());
-            pre.setInt(5, item.getId_unidade());
+            //pre.setInt(5, item.getId_unidade());
             
             pre.executeUpdate();
             
@@ -136,36 +147,47 @@ public class ItemDao {
         }
         
     }
-    
+
     public List<Item> listar(){
         List<Item> items = new ArrayList<>();
+        Unidade unidade = new Unidade();
+        Categoria categoria = new Categoria();
+
+        UnidadeDao unidadeDao = new UnidadeDao();
+        CategoriaDao categoriaDao= new CategoriaDao();
+
         try {
             Conexao conexao = new Conexao();
             String sql = "select * from items";
             PreparedStatement pre = conexao.conn.prepareStatement(sql);
-            
-            
+
+
+
             ResultSet rs = pre.executeQuery();
-            
+
             while(rs.next()){
                 Item item = new Item();
-                
+
                 item.setId(rs.getInt("id"));
                 item.setCodigo(rs.getString("codigo"));
-                item.setId_categoria(rs.getInt("id_categoria"));
-                item.setPreco(rs.getFloat("preco"));
+                item.setPreco(rs.getDouble("preco"));
                 item.setDescricao(rs.getString("descricao"));
-                item.setId_unidade(rs.getInt("id_unidade"));
-                
+
+                unidade = unidadeDao.buscar(rs.getInt("id_unidade"));
+                categoria = categoriaDao.buscar(rs.getInt("id_categoria"));
+
+                item.setUnidade(unidade);
+                item.setCategoria(categoria);
+
                 items.add(item);
             }
-            
+
             conexao.close();
-            
-        } catch (SQLException ex) { 
-            Logger.getLogger(ItemDao.class.getName()).log(Level.SEVERE, null, ex);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UnidadeDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return items;
     }
     

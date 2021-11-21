@@ -12,9 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import model.Compra;
+import model.Unidade;
 import src.dao.Conexao;
-import src.model.Compra;
-import src.model.Unidade;
 
 /**
  *

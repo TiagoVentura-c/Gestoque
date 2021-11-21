@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import model.Unidade;
 import src.dao.Conexao;
-import src.model.Categoria;
-import src.model.Unidade;
 
 /**
  *

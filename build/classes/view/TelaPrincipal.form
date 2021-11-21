@@ -226,7 +226,7 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace pref="219" max="32767" attributes="0"/>
+                              <EmptySpace pref="228" max="32767" attributes="0"/>
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jTextField_Itens_Descricao" min="-2" pref="163" max="-2" attributes="0"/>
@@ -342,6 +342,9 @@
                         <Property name="borderPainted" type="boolean" value="false"/>
                         <Property name="focusable" type="boolean" value="false"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_Itens_BuscarActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel5">
                       <Properties>
@@ -450,7 +453,7 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="373" max="32767" attributes="0"/>
                               <Component id="jButton_Itens_NovoItem" min="-2" pref="124" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jButton_Itens_Editar" min="-2" pref="101" max="-2" attributes="0"/>
@@ -465,7 +468,7 @@
                           <Group type="102" attributes="0">
                               <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jButton_Itens_NovoItem" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jButton_Itens_NovoItem" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                       <Component id="jButton_Itens_Editar" alignment="3" max="32767" attributes="0"/>
                                       <Component id="jButton_Itens_Apagar" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>

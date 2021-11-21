@@ -12,8 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import model.Categoria;
 import src.dao.Conexao;
-import src.model.Categoria;
+import model.Categoria;
 
 /**
  *
@@ -114,8 +116,7 @@ public class CategoriaDao{
             Conexao conexao = new Conexao();
             String sql = " select * from categorias";
             PreparedStatement pre = conexao.conn.prepareStatement(sql);
-            
-            
+           
             ResultSet rs=pre.executeQuery();
             while(rs.next()){
                 Categoria categoria = new Categoria();

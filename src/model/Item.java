@@ -1,14 +1,14 @@
-package src.model;
+package model;
 
 import java.math.BigDecimal;
 
 public class Item {
     private int id;
     private String codigo;
-    private int id_categoria;
+    private Categoria categoria;
     private double preco;
     private String descricao;
-    private int id_unidade;
+    private Unidade unidade;
 
     public int getId() {
         return id;
@@ -26,13 +26,6 @@ public class Item {
         this.codigo = codigo;
     }
 
-    public int getId_categoria() {
-        return id_categoria;
-    }
-
-    public void setId_categoria(int id_categoria) {
-        this.id_categoria = id_categoria;
-    }
 
     public double getPreco() {
         return preco;
@@ -50,11 +43,20 @@ public class Item {
         this.descricao = descricao;
     }
 
-    public int getId_unidade() {
-        return id_unidade;
+    public Categoria getCategoria() {
+        return categoria;
     }
 
-    public void setId_unidade(int id_unidade) {
-        this.id_unidade = id_unidade;
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
+
+    public Unidade getUnidade() {
+        return unidade;
+    }
+
+    public void setUnidade(Unidade unidade) {
+        this.unidade = unidade;
+    }
+
 }

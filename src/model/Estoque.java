@@ -1,8 +1,8 @@
-package src.model;
+package model;
 
 public class Estoque {
     private int id;
-    private int id_item;
+    private Item item;
     private int quantidade;
 
     public int getId() {
@@ -13,12 +13,12 @@ public class Estoque {
         this.id = id;
     }
 
-    public int getId_item() {
-        return id_item;
+    public Item getItem() {
+        return item;
     }
 
-    public void setId_item(int id_item) {
-        this.id_item = id_item;
+    public void setItem(Item item) {
+        this.item = item;
     }
 
     public int getQuantidade() {

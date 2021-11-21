@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import view.Estoque.NovoItemEstoque;
-import src.view.Itens.NovoItem;
+import view.Itens.NovoItem;
 import view.Vendas.DetalheVenda;
 
 import view.Vendas.NovoVenda;
@@ -34,6 +34,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanelItem.setVisible(true);
         
         itensCotroller = new ItensCotroller(this);
+        itensCotroller.preencherTabela();
     }
     
     public void visisbleFalse(){
@@ -41,9 +42,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanelEstoque.setVisible(false);
         jPanelVenda.setVisible(false);
         jPanelDespesa.setVisible(false);
-        
     }
-
+    
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -216,6 +217,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jButton_Itens_Buscar.setBorder(null);
         jButton_Itens_Buscar.setBorderPainted(false);
         jButton_Itens_Buscar.setFocusable(false);
+        jButton_Itens_Buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_Itens_BuscarActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -226,7 +232,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(219, Short.MAX_VALUE)
+                .addContainerGap(228, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jTextField_Itens_Descricao, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -330,7 +336,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(373, Short.MAX_VALUE)
                 .addComponent(jButton_Itens_NovoItem, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton_Itens_Editar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -343,7 +349,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton_Itens_NovoItem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton_Itens_NovoItem)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton_Itens_Editar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton_Itens_Apagar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -959,6 +965,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jButtonMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonMesActionPerformed
+
+    private void jButton_Itens_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Itens_BuscarActionPerformed
+        // TODO add your handling code here:
+        this.itensCotroller.buscar();
+    }//GEN-LAST:event_jButton_Itens_BuscarActionPerformed
 
     /**
      * @param args the command line arguments

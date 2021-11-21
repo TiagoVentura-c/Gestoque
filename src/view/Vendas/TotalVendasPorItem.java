@@ -5,7 +5,6 @@
  */
 package view.Vendas;
 
-import src.view.Estoque.*;
 import src.view.Itens.*;
 
 /**

@@ -5,17 +5,32 @@
  */
 package controller.Itens;
 
+import controller.Helper.Itens.ItensControllerHelper;
+import dao.modelDao.ItemDao;
+import java.util.List;
+import src.model.Item;
+import view.TelaPrincipal;
+
 /**
  *
  * @author Tiago Ventura
  */
+
 public class ItensCotroller {
 
+    private final ItensControllerHelper helper;
     
-    public ItensCotroller() {
-        
+    public ItensCotroller(TelaPrincipal view) {
+        this.helper = new ItensControllerHelper(view);
+        preencherTabela();
     }
     
+    public void preencherTabela(){
+        ItemDao itemDao = new ItemDao();
+        List<Item> items = itemDao.listar();
+        helper.preencherTabela(items);
+        
+    }
     
     
 }

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import src.dao.Conexao;
-import src.dao.modelDao.UnidadeDao;
+import dao.modelDao.UnidadeDao;
 import src.model.Item;
 import src.model.Unidade;
 
@@ -34,11 +34,11 @@ public class ItemDao {
         
         //inserir(item);
         
-        
+        /*
         List<Item> items = listar();
         
         for(Item i: items)
-            System.out.printf("id = %d, item = %s\n", i.getId(), i.getDescricao());
+            System.out.printf("id = %d, item = %s\n", i.getId(), i.getDescricao());*/
         
     }
     
@@ -137,7 +137,7 @@ public class ItemDao {
         
     }
     
-    public static List<Item> listar(){
+    public List<Item> listar(){
         List<Item> items = new ArrayList<>();
         try {
             Conexao conexao = new Conexao();

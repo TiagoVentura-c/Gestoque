@@ -77,6 +77,10 @@ public class ItensCotroller {
         }
                
     }
+
+    public Item itemSelecionado() {
+        return this.helper.itemSelecionado();
+    }
     
     
     

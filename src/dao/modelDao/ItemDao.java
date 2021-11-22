@@ -27,17 +27,27 @@ public class ItemDao {
     public static void main(String[] args) {
         
         Item item = new Item();
-        item.setCodigo("AL03");
-       // item.setId_categoria(1);
+        Categoria c = new Categoria();
+        Unidade u = new Unidade();
+        c.setId(1);
+        u.setId(1);
+        item.setId(19);
+        
+        item.setCategoria(c);
+        item.setUnidade(u);
+        
+        item.setCodigo("AL032125");
         item.setPreco(8300);
-        item.setDescricao("Ketchup");
-       // item.setId_unidade(3);
+        item.setDescricao("Ketchupxx");
         
         //inserir(item);
         
         /**/
-        List<Item> items = buscar("codigo","A");
+       // List<Item> items = buscar("codigo","A");
         
+        actualizar(item);
+        
+        List<Item> items = listar();
         for(Item i: items)
             System.out.printf("id = %d, item = %s\n", i.getId(), i.getDescricao());
         
@@ -133,10 +143,11 @@ public class ItemDao {
             PreparedStatement pre = conexao.conn.prepareStatement(sql);
             
             pre.setString(1, item.getCodigo());
-            //pre.setInt(2, item.getId_categoria());
+            pre.setInt(2, item.getCategoria().getId());
             pre.setDouble(3, item.getPreco());
             pre.setString(4, item.getDescricao());
-            //pre.setInt(5, item.getId_unidade());
+            pre.setInt(5, item.getUnidade().getId());
+            pre.setInt(6, item.getId());
             
             pre.executeUpdate();
             
@@ -148,7 +159,7 @@ public class ItemDao {
         
     }
 
-    public List<Item> listar(){
+    public static List<Item> listar(){
         List<Item> items = new ArrayList<>();
         Unidade unidade = new Unidade();
         Categoria categoria = new Categoria();

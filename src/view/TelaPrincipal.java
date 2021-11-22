@@ -5,11 +5,14 @@
  */
 package view;
 
+import controller.Itens.EditarItemController;
 import controller.Itens.ItensCotroller;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import model.Item;
 import view.Estoque.NovoItemEstoque;
+import view.Itens.EditarItem;
 import view.Itens.NovoItem;
 import view.Vendas.DetalheVenda;
 
@@ -284,8 +287,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jTable_Itens_TabelaItens.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Arroz", "AL001", "Alimentação", "700,00 Kz", "Kg"},
-                {"Feijão", "AL002", "Alimentação", "1000,00 Kz", "Kg"},
                 {null, null, null, "", null},
                 {null, null, null, null, null}
             },
@@ -321,6 +322,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
 
         jButton_Itens_Editar.setText("Editar");
+        jButton_Itens_Editar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_Itens_EditarActionPerformed(evt);
+            }
+        });
 
         jButton_Itens_Apagar.setText("Apagar");
 
@@ -931,9 +937,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jButtonEstoquesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEstoquesActionPerformed
         visisbleFalse();
-        jPanelEstoque.setVisible(true);
-        
-        
+        jPanelEstoque.setVisible(true);      
     }//GEN-LAST:event_jButtonEstoquesActionPerformed
 
     private void jPanel6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MousePressed
@@ -970,6 +974,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.itensCotroller.buscar();
     }//GEN-LAST:event_jButton_Itens_BuscarActionPerformed
+
+    private void jButton_Itens_EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Itens_EditarActionPerformed
+        // TODO add your handling code here:
+        Item i = new Item();
+        i = this.itensCotroller.itemSelecionado();
+
+        EditarItem editarItem = new EditarItem();
+        editarItem.controller.preencherTela(i);
+        
+        editarItem.setVisible(true);
+        
+    }//GEN-LAST:event_jButton_Itens_EditarActionPerformed
 
     /**
      * @param args the command line arguments

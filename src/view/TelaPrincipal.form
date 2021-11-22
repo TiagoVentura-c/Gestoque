@@ -405,37 +405,15 @@
                         <Component class="javax.swing.JTable" name="jTable_Itens_TabelaItens">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="5" rowCount="4">
-                                <Column editable="false" title="Descri&#xe7;&#xe3;o" type="java.lang.Object">
-                                  <Data value="Arroz"/>
-                                  <Data value="Feij&#xe3;o"/>
-                                  <Data value="null"/>
-                                  <Data value="null"/>
-                                </Column>
-                                <Column editable="false" title="C&#xf3;digo" type="java.lang.Object">
-                                  <Data value="AL001"/>
-                                  <Data value="AL002"/>
-                                  <Data value="null"/>
-                                  <Data value="null"/>
-                                </Column>
-                                <Column editable="false" title="Categoria" type="java.lang.Object">
-                                  <Data value="Alimenta&#xe7;&#xe3;o"/>
-                                  <Data value="Alimenta&#xe7;&#xe3;o"/>
-                                  <Data value="null"/>
-                                  <Data value="null"/>
-                                </Column>
+                              <Table columnCount="5" rowCount="2">
+                                <Column editable="false" title="Descri&#xe7;&#xe3;o" type="java.lang.Object"/>
+                                <Column editable="false" title="C&#xf3;digo" type="java.lang.Object"/>
+                                <Column editable="false" title="Categoria" type="java.lang.Object"/>
                                 <Column editable="false" title="Pre&#xe7;o Unit." type="java.lang.Object">
-                                  <Data value="700,00 Kz"/>
-                                  <Data value="1000,00 Kz"/>
                                   <Data value=""/>
                                   <Data value="null"/>
                                 </Column>
-                                <Column editable="false" title="Unidade" type="java.lang.Object">
-                                  <Data value="Kg"/>
-                                  <Data value="Kg"/>
-                                  <Data value="null"/>
-                                  <Data value="null"/>
-                                </Column>
+                                <Column editable="false" title="Unidade" type="java.lang.Object"/>
                               </Table>
                             </Property>
                             <Property name="gridColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -484,6 +462,9 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Editar"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_Itens_EditarActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="jButton_Itens_Apagar">
                       <Properties>

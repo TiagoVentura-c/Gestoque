@@ -14,13 +14,14 @@ import view.TelaPrincipal;
 public class ItensControllerHelper {
     
     private final TelaPrincipal view;
+    private List<Item> items;
     
     public ItensControllerHelper(TelaPrincipal view){
         this.view = view;
     }
     
     public void preencherTabela(List<Item> items){
-    
+    this.items = items;
      DefaultTableModel tableModel =   (DefaultTableModel) view.getjTable_Itens_TabelaItens().getModel();
      tableModel.setNumRows(0);
         for (Item item : items) {
@@ -45,6 +46,11 @@ public class ItensControllerHelper {
 
     public void preencherTabelaBack(List<Item> items) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Item itemSelecionado() {
+        int i = view.getjTable_Itens_TabelaItens().getSelectedRow();
+        return items.get(i);
     }
     
 }

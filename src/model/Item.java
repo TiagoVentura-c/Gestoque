@@ -1,7 +1,5 @@
 package model;
 
-import java.math.BigDecimal;
-
 public class Item {
     private int id;
     private String codigo;

@@ -5,6 +5,7 @@
  */
 package view.Itens;
 
+import controller.Itens.EditarItemController;
 import controller.Itens.NovoItemController;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -13,16 +14,16 @@ import javax.swing.JTextField;
  *
  * @author Tiago Ventura
  */
-public class NovoItem extends javax.swing.JFrame {
+public class EditarItem extends javax.swing.JFrame {
 
     /**
      * Creates new form NovoItem
      */
-    public static NovoItemController controller;
-    public NovoItem() {
+    public EditarItemController controller;
+    public EditarItem() {
         initComponents();
-        controller = new NovoItemController(this);
-        controller.preencherTela();
+        controller = new EditarItemController(this);
+
     }
 
     /**
@@ -54,7 +55,7 @@ public class NovoItem extends javax.swing.JFrame {
         jButtonSalvar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Novo Item");
+        setTitle("Editar Item");
         setBackground(new java.awt.Color(204, 204, 204));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -289,20 +290,21 @@ public class NovoItem extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NovoItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NovoItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NovoItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NovoItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NovoItem().setVisible(true);
+                new EditarItem().setVisible(true);
             }
         });
     }

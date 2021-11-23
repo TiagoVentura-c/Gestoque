@@ -10,8 +10,10 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import model.Categoria;
+import model.Estoque;
 import model.Item;
 import model.Unidade;
+import view.Estoque.NovoItemEstoque;
 import view.Itens.NovoItem;
 
 /**
@@ -77,7 +79,6 @@ public class NovoItemControllerHelper {
     public void imprime(String msm) {
         Component rootPane = null;
         JOptionPane.showMessageDialog(rootPane, msm);
-    }
-        
+    }   
     
 }

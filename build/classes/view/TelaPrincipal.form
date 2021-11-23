@@ -542,13 +542,13 @@
                               <EmptySpace pref="228" max="32767" attributes="0"/>
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jTextField4" min="-2" pref="163" max="-2" attributes="0"/>
+                              <Component id="jTextField_Estoque_descricao" min="-2" pref="163" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jTextField5" min="-2" pref="163" max="-2" attributes="0"/>
+                              <Component id="jTextField_Estoque_codigp" min="-2" pref="163" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="jButton7" min="-2" pref="83" max="-2" attributes="0"/>
+                              <Component id="jButton_Estoque_buscar" min="-2" pref="83" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
                               <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
@@ -574,11 +574,11 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel8" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
                                   <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                                      <Component id="jTextField4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jTextField_Estoque_descricao" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jTextField5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jTextField_Estoque_codigp" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jButton7" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                                      <Component id="jButton_Estoque_buscar" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -589,7 +589,7 @@
                   <SubComponents>
                     <Component class="javax.swing.JLabel" name="jLabel8">
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jTextField4">
+                    <Component class="javax.swing.JTextField" name="jTextField_Estoque_descricao">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="e1" green="9c" red="7b" type="rgb"/>
@@ -613,7 +613,7 @@
                         <Property name="text" type="java.lang.String" value="Descri&#xe7;&#xe3;o"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jTextField5">
+                    <Component class="javax.swing.JTextField" name="jTextField_Estoque_codigp">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="e1" green="9c" red="7b" type="rgb"/>
@@ -637,7 +637,7 @@
                         <Property name="text" type="java.lang.String" value="C&#xf3;digo"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jButton7">
+                    <Component class="javax.swing.JButton" name="jButton_Estoque_buscar">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="c5" green="78" red="47" type="rgb"/>
@@ -655,6 +655,9 @@
                         <Property name="borderPainted" type="boolean" value="false"/>
                         <Property name="focusable" type="boolean" value="false"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_Estoque_buscarActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JSeparator" name="jSeparator2">
                     </Component>
@@ -712,7 +715,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTable" name="jTable3">
+                        <Component class="javax.swing.JTable" name="jTable_Estoque_tabela">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                               <Table columnCount="3" rowCount="4">
@@ -728,7 +731,7 @@
                                   <Data value="null"/>
                                   <Data value="null"/>
                                 </Column>
-                                <Column editable="false" title="Quantidade" type="java.lang.Object">
+                                <Column editable="false" title="Quantidade em estoque" type="java.lang.Object">
                                   <Data value="80 Kg"/>
                                   <Data value="90 Cx"/>
                                   <Data value="null"/>
@@ -752,11 +755,11 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jButton_NovoItemNoEstoque" min="-2" pref="154" max="-2" attributes="0"/>
+                              <Component id="jButton_Estoque_novoItem" min="-2" pref="154" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jButton_Editar" min="-2" pref="101" max="-2" attributes="0"/>
+                              <Component id="jButton_Estoque_editar" min="-2" pref="101" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButtonApagar" min="-2" pref="80" max="-2" attributes="0"/>
+                              <Component id="jButton_Estoque_apagar" min="-2" pref="80" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -766,10 +769,10 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jButton_NovoItemNoEstoque" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jButton_Estoque_novoItem" alignment="0" max="32767" attributes="0"/>
                                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                      <Component id="jButton_Editar" alignment="3" max="32767" attributes="0"/>
-                                      <Component id="jButtonApagar" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                      <Component id="jButton_Estoque_editar" alignment="3" max="32767" attributes="0"/>
+                                      <Component id="jButton_Estoque_apagar" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
@@ -778,22 +781,28 @@
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JButton" name="jButton_Editar">
+                    <Component class="javax.swing.JButton" name="jButton_Estoque_editar">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Editar"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_Estoque_editarActionPerformed"/>
+                      </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jButtonApagar">
+                    <Component class="javax.swing.JButton" name="jButton_Estoque_apagar">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Apagar"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_Estoque_apagarActionPerformed"/>
+                      </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jButton_NovoItemNoEstoque">
+                    <Component class="javax.swing.JButton" name="jButton_Estoque_novoItem">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Novo Item no estoque"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_NovoItemNoEstoqueActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_Estoque_novoItemActionPerformed"/>
                       </Events>
                     </Component>
                   </SubComponents>

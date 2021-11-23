@@ -6,17 +6,14 @@
 package controller.Itens;
 
 import controller.Helper.Itens.EditarItemControllerHelper;
-import controller.Helper.Itens.NovoItemControllerHelper;
 import dao.modelDao.CategoriaDao;
 import dao.modelDao.ItemDao;
 import dao.modelDao.UnidadeDao;
 import java.util.List;
-import javax.swing.DefaultComboBoxModel;
 import model.Categoria;
 import model.Item;
 import model.Unidade;
 import view.Itens.EditarItem;
-import view.Itens.NovoItem;
 
 /**
  **

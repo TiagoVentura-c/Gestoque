@@ -201,5 +201,44 @@ public class ItemDao {
 
         return items;
     }
+
+    public static Item buscarPorId(int id) {
+        Unidade unidade = new Unidade();
+        Categoria categoria = new Categoria();
+        Item item = new Item();
+
+        UnidadeDao unidadeDao = new UnidadeDao();
+        CategoriaDao categoriaDao= new CategoriaDao();
+        
+        try {
+            Conexao conexao = new Conexao();
+            String sql = "select * from items where id=?";
+            
+            PreparedStatement pre = conexao.conn.prepareStatement(sql);
+            pre.setInt(1, id);            
+            
+            ResultSet rs = pre.executeQuery();
+                
+                item.setId(rs.getInt("id"));
+                item.setCodigo(rs.getString("codigo"));
+                item.setPreco(rs.getDouble("preco"));
+                item.setDescricao(rs.getString("descricao"));
+
+                unidade = unidadeDao.buscar(rs.getInt("id_unidade"));
+                categoria = categoriaDao.buscar(rs.getInt("id_categoria"));
+
+                item.setUnidade(unidade);
+                item.setCategoria(categoria);
+            
+            conexao.close();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UnidadeDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return item;
+    }
+    
+    
     
 }

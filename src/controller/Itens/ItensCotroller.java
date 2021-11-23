@@ -10,6 +10,7 @@ import dao.modelDao.ItemDao;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import model.Estoque;
 
 import model.Item;
 import view.TelaPrincipal;
@@ -81,7 +82,6 @@ public class ItensCotroller {
     public Item itemSelecionado() {
         return this.helper.itemSelecionado();
     }
-    
     
     
 }

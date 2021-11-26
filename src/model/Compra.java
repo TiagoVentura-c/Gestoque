@@ -7,7 +7,17 @@ public class Compra {
     private Venda venda;
     private Item item;
     private int quantidade;
-    private LocaleData data;
+    private float valor;
+
+    public float getValor() {
+        return valor;
+    }
+
+    public void setValor(float valor) {
+        this.valor = valor;
+    }
+    
+    
 
     public int getId() {
         return id;
@@ -39,13 +49,5 @@ public class Compra {
 
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
-    }
-
-    public LocaleData getData() {
-        return data;
-    }
-
-    public void setData(LocaleData data) {
-        this.data = data;
     }
 }

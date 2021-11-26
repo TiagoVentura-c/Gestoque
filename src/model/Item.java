@@ -4,7 +4,7 @@ public class Item {
     private int id;
     private String codigo;
     private Categoria categoria;
-    private double preco;
+    private float preco;
     private String descricao;
     private Unidade unidade;
 
@@ -25,11 +25,11 @@ public class Item {
     }
 
 
-    public double getPreco() {
+    public float getPreco() {
         return preco;
     }
 
-    public void setPreco(double preco) {
+    public void setPreco(float preco) {
         this.preco = preco;
     }
 

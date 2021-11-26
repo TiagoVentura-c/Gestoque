@@ -59,7 +59,7 @@ public class EditarItemControllerHelper {
         
         i.setCodigo(view.getjTextFieldCodigo().getText().toString());
         i.setDescricao(view.getjTextFieldDescricao().getText().toString());
-        i.setPreco(Double.parseDouble(view.getjTextFieldPreco().getText().toString()));
+        i.setPreco(Float.parseFloat(view.getjTextFieldPreco().getText().toString()));
         
         u.setId(obterIdUnidadeSelecionado());
         c.setId(obterIdCategoriaSelecionado());

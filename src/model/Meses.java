@@ -3,13 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao.modelDao;
+package model;
 
-/**
- *
- * @author tiago
- */
-public interface ModelDao {
-    
-    
+public enum Meses {
+    JAN, FEV, MAR, ABR, MAI, JUN, JUL, AGO, SET, OUT, NOV, DEZ
 }

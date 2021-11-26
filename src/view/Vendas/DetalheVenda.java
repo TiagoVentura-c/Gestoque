@@ -5,6 +5,9 @@
  */
 package view.Vendas;
 
+import controller.Vendas.DetalheVendaController;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import src.view.Itens.*;
 
 /**
@@ -16,8 +19,10 @@ public class DetalheVenda extends javax.swing.JFrame {
     /**
      * Creates new form NovoItem
      */
+    private final DetalheVendaController controller;
     public DetalheVenda() {
         initComponents();
+        controller = new DetalheVendaController(this);
     }
 
     /**
@@ -34,15 +39,17 @@ public class DetalheVenda extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jTextFieldNomeCliente = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableDetalhe = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         jTextFieldValorTotal = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jTextFieldDataCompra = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jButtonCancelar = new javax.swing.JButton();
         jButtonImprimir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Nova venda");
+        setTitle("Detalhe de venda");
         setBackground(new java.awt.Color(204, 204, 204));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -52,14 +59,10 @@ public class DetalheVenda extends javax.swing.JFrame {
         jLabel5.setText("Nome do Cliente:");
 
         jTextFieldNomeCliente.setEditable(false);
-        jTextFieldNomeCliente.setEnabled(false);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableDetalhe.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Arroz", "12 Kg", "1.400, 00Kz"},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Produto", "Quantidade", "Valor X Quantidade"
@@ -73,13 +76,16 @@ public class DetalheVenda extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTableDetalhe);
 
         jLabel6.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
         jLabel6.setText("Valor total:");
 
         jTextFieldValorTotal.setEditable(false);
-        jTextFieldValorTotal.setEnabled(false);
+
+        jLabel1.setText("Data:");
+
+        jTextFieldDataCompra.setEditable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -91,16 +97,18 @@ public class DetalheVenda extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
                     .addComponent(jSeparator1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(75, 75, 75)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldDataCompra)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -109,7 +117,9 @@ public class DetalheVenda extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextFieldNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(jTextFieldDataCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -218,16 +228,52 @@ public class DetalheVenda extends javax.swing.JFrame {
         });
     }
 
+    public JTable getjTableDetalhe() {
+        return jTableDetalhe;
+    }
+
+    public void setjTableDetalhe(JTable jTableDetalhe) {
+        this.jTableDetalhe = jTableDetalhe;
+    }
+
+    public JTextField getjTextFieldNomeCliente() {
+        return jTextFieldNomeCliente;
+    }
+
+    public void setjTextFieldNomeCliente(JTextField jTextFieldNomeCliente) {
+        this.jTextFieldNomeCliente = jTextFieldNomeCliente;
+    }
+
+    public JTextField getjTextFieldValorTotal() {
+        return jTextFieldValorTotal;
+    }
+
+    public void setjTextFieldValorTotal(JTextField jTextFieldValorTotal) {
+        this.jTextFieldValorTotal = jTextFieldValorTotal;
+    }
+
+    public JTextField getjTextFieldDataCompra() {
+        return jTextFieldDataCompra;
+    }
+
+    public void setjTextFieldDataCompra(JTextField jTextFieldDataCompra) {
+        this.jTextFieldDataCompra = jTextFieldDataCompra;
+    }
+    
+    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonImprimir;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableDetalhe;
+    private javax.swing.JTextField jTextFieldDataCompra;
     private javax.swing.JTextField jTextFieldNomeCliente;
     private javax.swing.JTextField jTextFieldValorTotal;
     // End of variables declaration//GEN-END:variables

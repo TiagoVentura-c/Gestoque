@@ -7,15 +7,20 @@ package view;
 
 import controller.Estoque.EstoqueController;
 import controller.Estoque.NovoItemEstoqueController;
-import controller.Itens.EditarItemController;
 import controller.Itens.ItensCotroller;
-import controller.Itens.NovoItemController;
+import controller.Vendas.DetalheVendaController;
+import controller.Vendas.VendasController;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import model.Estoque;
 import model.Item;
+import model.Venda;
 import view.Estoque.NovoItemEstoque;
 import view.Itens.EditarItem;
 import view.Itens.NovoItem;
@@ -35,9 +40,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
      */
     private final ItensCotroller itensCotroller;
     private final EstoqueController estoqueController;
+    private final VendasController vendasController;
     
     public TelaPrincipal() {
-        
         initComponents();
         visisbleFalse();
         jPanelItem.setVisible(true);
@@ -47,6 +52,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
         estoqueController = new EstoqueController(this);
         
+        vendasController = new VendasController(this);
     }
     
     public void visisbleFalse(){
@@ -113,25 +119,26 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanelVenda = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        jTextField_Vendas_data = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox();
-        jButtonMes = new javax.swing.JButton();
-        jButtonData = new javax.swing.JButton();
+        jButton_Venda_buscar_mes = new javax.swing.JButton();
+        jButton_Vendas_buscarData = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
         jLabel13 = new javax.swing.JLabel();
+        jComboBox_Vendas_meses = new javax.swing.JComboBox();
+        jComboBox_Vendas_ano = new javax.swing.JComboBox();
         jPanelOpcoes2 = new javax.swing.JPanel();
-        jButton6 = new javax.swing.JButton();
+        jButton_Vendas_totalItensVendidos = new javax.swing.JButton();
         jPanelListaItens2 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
-        jTextField6 = new javax.swing.JTextField();
+        jTable_Vendas_tabela = new javax.swing.JTable();
+        jTextField_Vendas_total = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
-        jButtonNovaVenda = new javax.swing.JButton();
-        jButtonDetalheVenda = new javax.swing.JButton();
-        jLabelVendaBuscada = new javax.swing.JLabel();
+        jButton_Vendas_NovaVenda = new javax.swing.JButton();
+        jButton_Vendas_Detalhe = new javax.swing.JButton();
+        jLabel_Vendas_vendasDe = new javax.swing.JLabel();
         jPanelDespesa = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -504,10 +511,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jTable_Estoque_tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Arroz", "AL001", "80 Kg"},
-                {"Feijão", "AL002", "90 Cx"},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Descrição", "Código", "Quantidade em estoque"
@@ -629,9 +633,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jTextField7.setBackground(new java.awt.Color(123, 156, 225));
-        jTextField7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jTextField7.setForeground(new java.awt.Color(255, 255, 255));
+        jTextField_Vendas_data.setBackground(new java.awt.Color(123, 156, 225));
+        jTextField_Vendas_data.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextField_Vendas_data.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -641,55 +645,61 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Mês:");
 
-        jComboBox3.setMaximumRowCount(15);
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "JAN", "FEV", "Item 3", "Item 4" }));
-        jComboBox3.setBorder(null);
-        jComboBox3.setFocusable(false);
-
-        jButtonMes.setBackground(new java.awt.Color(71, 120, 197));
-        jButtonMes.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonMes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/images/icons8_Search_18px.png"))); // NOI18N
-        jButtonMes.setText("Buscar");
-        jButtonMes.setBorder(null);
-        jButtonMes.setBorderPainted(false);
-        jButtonMes.setFocusable(false);
-        jButtonMes.addActionListener(new java.awt.event.ActionListener() {
+        jButton_Venda_buscar_mes.setBackground(new java.awt.Color(71, 120, 197));
+        jButton_Venda_buscar_mes.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Venda_buscar_mes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/images/icons8_Search_18px.png"))); // NOI18N
+        jButton_Venda_buscar_mes.setText("Buscar");
+        jButton_Venda_buscar_mes.setBorder(null);
+        jButton_Venda_buscar_mes.setBorderPainted(false);
+        jButton_Venda_buscar_mes.setFocusable(false);
+        jButton_Venda_buscar_mes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonMesActionPerformed(evt);
+                jButton_Venda_buscar_mesActionPerformed(evt);
             }
         });
 
-        jButtonData.setBackground(new java.awt.Color(71, 120, 197));
-        jButtonData.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/images/icons8_Search_18px.png"))); // NOI18N
-        jButtonData.setText("Buscar");
-        jButtonData.setBorder(null);
-        jButtonData.setBorderPainted(false);
-        jButtonData.setFocusable(false);
+        jButton_Vendas_buscarData.setBackground(new java.awt.Color(71, 120, 197));
+        jButton_Vendas_buscarData.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Vendas_buscarData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/images/icons8_Search_18px.png"))); // NOI18N
+        jButton_Vendas_buscarData.setText("Buscar");
+        jButton_Vendas_buscarData.setBorder(null);
+        jButton_Vendas_buscarData.setBorderPainted(false);
+        jButton_Vendas_buscarData.setFocusable(false);
+        jButton_Vendas_buscarData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_Vendas_buscarDataActionPerformed(evt);
+            }
+        });
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("Vendas");
 
+        jComboBox_Vendas_meses.setMaximumRowCount(15);
+        jComboBox_Vendas_meses.setBorder(null);
+        jComboBox_Vendas_meses.setFocusable(false);
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(401, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jComboBox_Vendas_ano, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonMes, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jComboBox_Vendas_meses, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton_Venda_buscar_mes, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextField_Vendas_data, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonData, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton_Vendas_buscarData, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
@@ -707,21 +717,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonData, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_Vendas_buscarData, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField_Vendas_data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel6)
                         .addComponent(jLabel10)
-                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButtonMes, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton_Venda_buscar_mes, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBox_Vendas_meses, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBox_Vendas_ano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
-        jButton6.setText("Ver total de vendas por item");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        jButton_Vendas_totalItensVendidos.setText("Ver total de vendas por item");
+        jButton_Vendas_totalItensVendidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                jButton_Vendas_totalItensVendidosActionPerformed(evt);
             }
         });
 
@@ -731,23 +742,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
             jPanelOpcoes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelOpcoes2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton6)
+                .addComponent(jButton_Vendas_totalItensVendidos)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelOpcoes2Layout.setVerticalGroup(
             jPanelOpcoes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelOpcoes2Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jButton6)
+                .addComponent(jButton_Vendas_totalItensVendidos)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        jTable_Vendas_tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"10/JAN/2021 18:25", "1500,00 Kz", "Domigos André"},
-                {"10/JAN/2021 10:32", "2.000,00 Kz", "Miguel João"},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Data", "Total Pago", "Cliente"
@@ -761,11 +769,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable4.setGridColor(new java.awt.Color(255, 255, 255));
-        jScrollPane4.setViewportView(jTable4);
+        jTable_Vendas_tabela.setGridColor(new java.awt.Color(255, 255, 255));
+        jScrollPane4.setViewportView(jTable_Vendas_tabela);
 
-        jTextField6.setEditable(false);
-        jTextField6.setEnabled(false);
+        jTextField_Vendas_total.setEditable(false);
+        jTextField_Vendas_total.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_Vendas_totalActionPerformed(evt);
+            }
+        });
 
         jLabel11.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
         jLabel11.setText("Total:");
@@ -781,7 +793,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     .addGroup(jPanelListaItens2Layout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addGap(8, 8, 8)
-                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField_Vendas_total, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanelListaItens2Layout.setVerticalGroup(
@@ -794,21 +806,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     .addGroup(jPanelListaItens2Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jLabel11))
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField_Vendas_total, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8))
         );
 
-        jButtonNovaVenda.setText("Novo Venda");
-        jButtonNovaVenda.addActionListener(new java.awt.event.ActionListener() {
+        jButton_Vendas_NovaVenda.setText("Novo Venda");
+        jButton_Vendas_NovaVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonNovaVendaActionPerformed(evt);
+                jButton_Vendas_NovaVendaActionPerformed(evt);
             }
         });
 
-        jButtonDetalheVenda.setText("Ver detalhe da venda");
-        jButtonDetalheVenda.addActionListener(new java.awt.event.ActionListener() {
+        jButton_Vendas_Detalhe.setText("Ver detalhe da venda");
+        jButton_Vendas_Detalhe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonDetalheVendaActionPerformed(evt);
+                jButton_Vendas_DetalheActionPerformed(evt);
             }
         });
 
@@ -818,9 +830,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonDetalheVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton_Vendas_Detalhe, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonNovaVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton_Vendas_NovaVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -828,13 +840,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonNovaVenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonDetalheVenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton_Vendas_NovaVenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton_Vendas_Detalhe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabelVendaBuscada.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabelVendaBuscada.setText("Vendas deste mês:");
+        jLabel_Vendas_vendasDe.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel_Vendas_vendasDe.setText("Vendas de: ");
 
         javax.swing.GroupLayout jPanelVendaLayout = new javax.swing.GroupLayout(jPanelVenda);
         jPanelVenda.setLayout(jPanelVendaLayout);
@@ -843,15 +855,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanelVendaLayout.createSequentialGroup()
                 .addComponent(jPanelOpcoes2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelVendaLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanelListaItens2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanelVendaLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jLabelVendaBuscada, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jPanelListaItens2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel_Vendas_vendasDe, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanelVendaLayout.setVerticalGroup(
@@ -862,9 +871,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanelOpcoes2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanelVendaLayout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(jLabelVendaBuscada)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(13, 13, 13)
+                        .addComponent(jLabel_Vendas_vendasDe)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanelListaItens2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -913,6 +922,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         visisbleFalse();
         jPanelVenda.setVisible(true);
+        try {
+            this.vendasController.setarTabela();
+        } catch (ParseException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonVendasActionPerformed
 
     private void jButtonDesoesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDesoesasActionPerformed
@@ -975,27 +989,40 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel6MouseDragged
 
-    private void jButtonNovaVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovaVendaActionPerformed
+    private void jButton_Vendas_NovaVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Vendas_NovaVendaActionPerformed
         // TODO add your handling code here:
         NovoVenda nv = new NovoVenda();
         nv.setVisible(true);
-    }//GEN-LAST:event_jButtonNovaVendaActionPerformed
+    }//GEN-LAST:event_jButton_Vendas_NovaVendaActionPerformed
 
-    private void jButtonDetalheVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDetalheVendaActionPerformed
+    private void jButton_Vendas_DetalheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Vendas_DetalheActionPerformed
         // TODO add your handling code here:
+        
+        Venda v = this.vendasController.obterVendaSeleciona();
         DetalheVenda dv = new DetalheVenda();
-       dv.setVisible(true);
-    }//GEN-LAST:event_jButtonDetalheVendaActionPerformed
+        
+        try {
+            DetalheVendaController.setarTela(v);
+        } catch (ParseException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dv.setVisible(true);
+    }//GEN-LAST:event_jButton_Vendas_DetalheActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void jButton_Vendas_totalItensVendidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Vendas_totalItensVendidosActionPerformed
         // TODO add your handling code here:
         TotalVendasPorItem item = new TotalVendasPorItem();
         item.setVisible(true);
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_jButton_Vendas_totalItensVendidosActionPerformed
 
-    private void jButtonMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonMesActionPerformed
+    private void jButton_Venda_buscar_mesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Venda_buscar_mesActionPerformed
+        try {
+            // TODO add your handling code here:
+            this.vendasController.buscarMesEANo();
+        } catch (ParseException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton_Venda_buscar_mesActionPerformed
 
     private void jButton_Itens_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Itens_BuscarActionPerformed
         // TODO add your handling code here:
@@ -1035,6 +1062,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
         if(e == null) return;
         this.estoqueController.apagar(e);
     }//GEN-LAST:event_jButton_Estoque_apagarActionPerformed
+
+    private void jButton_Vendas_buscarDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Vendas_buscarDataActionPerformed
+        try {
+            // TODO add your handling code here:
+            this.vendasController.buscarData();
+        } catch (ParseException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton_Vendas_buscarDataActionPerformed
+
+    private void jTextField_Vendas_totalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_Vendas_totalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_Vendas_totalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1165,27 +1205,64 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public void setjTextField_Estoque_descricao(JTextField jTextField_Estoque_descricao) {
         this.jTextField_Estoque_descricao = jTextField_Estoque_descricao;
     }
+
+    public JComboBox getjComboBox_Vendas_meses() {
+        return jComboBox_Vendas_meses;
+    }
+
+    public void setjComboBox_Vendas_meses(JComboBox jComboBox_Vendas_meses) {
+        this.jComboBox_Vendas_meses = jComboBox_Vendas_meses;
+    }
+
+    public JTextField getjTextField_Vendas_total() {
+        return jTextField_Vendas_total;
+    }
+
+    public void setjTextField_Vendas_total(JTextField jTextField_Vendas_total) {
+        this.jTextField_Vendas_total = jTextField_Vendas_total;
+    }
+
+
+    public JTable getjTable_Vendas_tabela() {
+        return jTable_Vendas_tabela;
+    }
+
+    public void setjTable_Vendas_tabela(JTable jTable_Vendas_tabela) {
+        this.jTable_Vendas_tabela = jTable_Vendas_tabela;
+    }
+
+    public JTextField getjTextField_Vendas_data() {
+        return jTextField_Vendas_data;
+    }
+
+    public void setjTextField_Vendas_data(JTextField jTextField_Vendas_data) {
+        this.jTextField_Vendas_data = jTextField_Vendas_data;
+    }
     
-    
-    
-    
-    
-    
-    
+    public JLabel getjLabel_Vendas_vendasDe() {
+        return jLabel_Vendas_vendasDe;
+    }
+
+    public void setjLabel_Vendas_vendasDe(JLabel jLabel_Vendas_vendasDe) {
+        this.jLabel_Vendas_vendasDe = jLabel_Vendas_vendasDe;
+    }
+
+    public JComboBox getjComboBox_Vendas_ano() {
+        return jComboBox_Vendas_ano;
+    }
+
+    public void setjComboBox_Vendas_ano(JComboBox jComboBox_Vendas_ano) {
+        this.jComboBox_Vendas_ano = jComboBox_Vendas_ano;
+    }
     
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel MenuLateral;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton9;
-    private javax.swing.JButton jButtonData;
     private javax.swing.JButton jButtonDesoesas;
-    private javax.swing.JButton jButtonDetalheVenda;
     private javax.swing.JButton jButtonEstoques;
     private javax.swing.JButton jButtonItens;
-    private javax.swing.JButton jButtonMes;
-    private javax.swing.JButton jButtonNovaVenda;
     private javax.swing.JButton jButtonVendas;
     private javax.swing.JButton jButton_Estoque_apagar;
     private javax.swing.JButton jButton_Estoque_buscar;
@@ -1195,7 +1272,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton_Itens_Buscar;
     private javax.swing.JButton jButton_Itens_Editar;
     private javax.swing.JButton jButton_Itens_NovoItem;
-    private javax.swing.JComboBox jComboBox3;
+    private javax.swing.JButton jButton_Venda_buscar_mes;
+    private javax.swing.JButton jButton_Vendas_Detalhe;
+    private javax.swing.JButton jButton_Vendas_NovaVenda;
+    private javax.swing.JButton jButton_Vendas_buscarData;
+    private javax.swing.JButton jButton_Vendas_totalItensVendidos;
+    private javax.swing.JComboBox jComboBox_Vendas_ano;
+    private javax.swing.JComboBox jComboBox_Vendas_meses;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1209,7 +1292,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel jLabelVendaBuscada;
+    private javax.swing.JLabel jLabel_Vendas_vendasDe;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -1234,14 +1317,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTable jTable4;
     private javax.swing.JTable jTable_Estoque_tabela;
     private javax.swing.JTable jTable_Itens_TabelaItens;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
+    private javax.swing.JTable jTable_Vendas_tabela;
     private javax.swing.JTextField jTextField_Estoque_codigp;
     private javax.swing.JTextField jTextField_Estoque_descricao;
     private javax.swing.JTextField jTextField_Itens_Codigo;
     private javax.swing.JTextField jTextField_Itens_Descricao;
+    private javax.swing.JTextField jTextField_Vendas_data;
+    private javax.swing.JTextField jTextField_Vendas_total;
     // End of variables declaration//GEN-END:variables
 }

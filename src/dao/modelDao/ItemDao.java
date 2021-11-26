@@ -40,6 +40,7 @@ public class ItemDao {
         item.setPreco(8300);
         item.setDescricao("Ketchupxx");
         
+        
         //inserir(item);
         
         /**/
@@ -114,7 +115,7 @@ public class ItemDao {
                 
                 item.setId(rs.getInt("id"));
                 item.setCodigo(rs.getString("codigo"));
-                item.setPreco(rs.getDouble("preco"));
+                item.setPreco(rs.getFloat("preco"));
                 item.setDescricao(rs.getString("descricao"));
 
                 unidade = unidadeDao.buscar(rs.getInt("id_unidade"));
@@ -181,7 +182,7 @@ public class ItemDao {
 
                 item.setId(rs.getInt("id"));
                 item.setCodigo(rs.getString("codigo"));
-                item.setPreco(rs.getDouble("preco"));
+                item.setPreco(rs.getFloat("preco"));
                 item.setDescricao(rs.getString("descricao"));
 
                 unidade = unidadeDao.buscar(rs.getInt("id_unidade"));
@@ -221,7 +222,7 @@ public class ItemDao {
                 
                 item.setId(rs.getInt("id"));
                 item.setCodigo(rs.getString("codigo"));
-                item.setPreco(rs.getDouble("preco"));
+                item.setPreco(rs.getFloat("preco"));
                 item.setDescricao(rs.getString("descricao"));
 
                 unidade = unidadeDao.buscar(rs.getInt("id_unidade"));

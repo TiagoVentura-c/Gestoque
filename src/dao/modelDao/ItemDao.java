@@ -43,14 +43,13 @@ public class ItemDao {
         
         //inserir(item);
         
-        /**/
+        /*
        // List<Item> items = buscar("codigo","A");
         
-        actualizar(item);
-        
-        List<Item> items = listar();
-        for(Item i: items)
-            System.out.printf("id = %d, item = %s\n", i.getId(), i.getDescricao());
+       List<Item> its = ItemDao.listar();
+       
+       its.forEach(i -> System.out.println(i.getId() + " "+ i.getDescricao()));
+        */
         
     }
     
@@ -173,8 +172,6 @@ public class ItemDao {
             String sql = "select * from items";
             PreparedStatement pre = conexao.conn.prepareStatement(sql);
 
-
-
             ResultSet rs = pre.executeQuery();
 
             while(rs.next()){
@@ -186,7 +183,7 @@ public class ItemDao {
                 item.setDescricao(rs.getString("descricao"));
 
                 unidade = unidadeDao.buscar(rs.getInt("id_unidade"));
-                categoria = categoriaDao.buscar(rs.getInt("id_categoria"));
+                categoria = CategoriaDao.buscar(rs.getInt("id_categoria"));
 
                 item.setUnidade(unidade);
                 item.setCategoria(categoria);

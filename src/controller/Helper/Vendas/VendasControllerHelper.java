@@ -7,12 +7,10 @@ package controller.Helper.Vendas;
 
 import controller.Utils.Util;
 import java.awt.Component;
-import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -37,7 +35,7 @@ public class VendasControllerHelper {
         
     }
     
-    public void setarAnoEMes(Date data){
+    public void setarAnoEMes(LocalDateTime data){
         DefaultComboBoxModel comboBoxModelMeses = (DefaultComboBoxModel) view.getjComboBox_Vendas_meses().getModel();
         DefaultComboBoxModel comboBoxModelAnos = (DefaultComboBoxModel) view.getjComboBox_Vendas_ano().getModel();
         
@@ -50,15 +48,14 @@ public class VendasControllerHelper {
         for(Integer ano: anos)
             comboBoxModelAnos.addElement(ano);
         
-        view.getjComboBox_Vendas_meses().setSelectedIndex(data.getMonth());
-        view.getjComboBox_Vendas_ano().setSelectedItem(Integer.parseInt(Util.getAno(data)));
-        
+        view.getjComboBox_Vendas_meses().setSelectedIndex(data.getMonthValue()-1);
+        view.getjComboBox_Vendas_ano().setSelectedItem(data.getYear());    
     }
 
-    public void setarTela(List<Venda> vendas, Date data) { 
+    public void setarTela(List<Venda> vendas, LocalDateTime data) { 
         setarAnoEMes(data);
         
-         this.vendas = vendas;
+        this.vendas = vendas;
         
         double total=0;
         DefaultTableModel tableModel =   (DefaultTableModel) view.getjTable_Vendas_tabela().getModel();
@@ -74,27 +71,30 @@ public class VendasControllerHelper {
         } 
           
         view.getjTextField_Vendas_total().setText(total+" Kz");
-        view.getjLabel_Vendas_vendasDe().setText("Vendas de: "+vendas.get(0).getAnoEMes());  
+        view.getjLabel_Vendas_vendasDe().setText("Vendas de: "+Util.obterMesEAnoEmString(data));  
     }
 
-    public Date obterMesEANoSelecionado() {
-        Date d = new Date();
-        d.setMonth(view.getjComboBox_Vendas_meses().getSelectedIndex());
-        d.setYear(anos.get(view.getjComboBox_Vendas_ano().getSelectedIndex())-1900);  
+    public LocalDateTime obterMesEANoSelecionado() {
+        LocalDateTime d;
+        int ano = anos.get(view.getjComboBox_Vendas_ano().getSelectedIndex());
+        int mes = view.getjComboBox_Vendas_meses().getSelectedIndex()+1;
+        
+        System.out.println(ano +" "+mes);
+        d = LocalDateTime.of(ano, mes , 1, 1, 1);
+         
         return d;
     }
 
-    public Date obterData() {
-        Date date = new Date();
-        String dataString = view.getjTextField_Vendas_data().getText().toString();
+    public LocalDate obterData() {
+        LocalDate date = null;
         
-        try {       
-            date = Util.setDataString(dataString);
-        } catch (ParseException ex) {
-            imprime("Nenhuma venda encontrada com esta data "+ ex.getMessage());
-            //Logger.getLogger(VendasControllerHelper.class.getName()).log(Level.SEVERE, null, ex);
+        String dataString = view.getjTextField_Vendas_data().getText(); 
+        try{
+            date = Util.formatarStringEmDataBarra(dataString);
+        } catch(Exception ex){
+            imprime("Data inválida");
         }
-        
+         
         return date;
     }
     
@@ -105,6 +105,16 @@ public class VendasControllerHelper {
 
     public Venda obterVendaSelecionada() {
         return this.vendas.get(view.getjTable_Vendas_tabela().getSelectedRow());
+    }
+
+    public void setarTelaVazia(LocalDateTime data) {
+        setarAnoEMes(data);
+        DefaultTableModel tableModel =   (DefaultTableModel) view.getjTable_Vendas_tabela().getModel();
+        tableModel.setNumRows(0);
+        
+        view.getjTextField_Vendas_total().setText(0+" Kz");
+        view.getjLabel_Vendas_vendasDe().setText("Vendas de: "+ Util.obterMesEAnoEmString(data));
+        
     }
 
     

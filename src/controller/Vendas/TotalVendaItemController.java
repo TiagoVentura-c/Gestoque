@@ -10,10 +10,10 @@ import dao.modelDao.CompraDao;
 import dao.modelDao.ItemDao;
 import dao.modelDao.VendaDao;
 import java.text.ParseException;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import model.Item;
-import model.Venda;
 import model.VendaItem;
 import view.Vendas.TotalVendasPorItem;
 
@@ -29,7 +29,7 @@ public class TotalVendaItemController {
     private final VendaDao vendaDao = new VendaDao();
     private final CompraDao compraDao = new CompraDao();
     
-    private List<Item> items;
+    private final List<Item> items;
     
     public TotalVendaItemController(TotalVendasPorItem view) {
         this.helper = new TotalVendaItemControllerHelper(view);
@@ -37,7 +37,9 @@ public class TotalVendaItemController {
     }
 
     public void setarTela() {
-        Date data = new Date();
+        LocalDateTime data = LocalDateTime.now();
+        
+        System.out.println(data);
         
         this.helper.setarTela(items, data);
         
@@ -51,7 +53,7 @@ public class TotalVendaItemController {
     }
 
     public void buscar() throws ParseException {
-        Date data = this.helper.obterMesEANoSelecionado();
+        LocalDateTime data = this.helper.obterMesEANoSelecionado();
         Item i = items.get(this.helper.itemSelecionado());
         
        //List<Venda> vendas = vendaDao.buscarPorMes(data);

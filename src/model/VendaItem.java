@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -14,7 +15,7 @@ import java.util.Date;
 public class VendaItem {
     
     private String descricao;
-    private Date data;
+    private LocalDateTime data;
     private int quantidade;
     private float total;
     private String unidade;
@@ -36,11 +37,11 @@ public class VendaItem {
         this.descricao = descricao;
     }
 
-    public Date getData() {
+    public LocalDateTime getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(LocalDateTime data) {
         this.data = data;
     }
 

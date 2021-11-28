@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -43,11 +45,6 @@ public class VendaDao {
         
         System.out.println(v.getAno());
         
-        List<Venda> vs = buscarPorMes(s);
-        /**/
-        for(Venda ve: vs){
-            System.out.printf("id=%d, nomecliente=%s, data=%s \n", ve.getId(), ve.getNomeCliente(), ve.getDataFormatada());
-        }
                 
     }
     
@@ -174,11 +171,11 @@ public class VendaDao {
         return vendas;
     }
 
-    public static List<Venda> buscarPorMes(Date data) throws ParseException {
+    public static List<Venda> buscarPorMes(LocalDateTime data) throws ParseException {
         List<Venda> vendas = new ArrayList<>();
-        String mesActual = getDataString(data);
-        data.setMonth(data.getMonth()+1);
-        String mesSeguinte = getDataString(data);
+        String mesActual = Util.obterMesEAnoEmString(data);
+        data = data.plusMonths(1);        
+        String mesSeguinte = Util.obterMesEAnoEmString(data);
                 
         try {
             Conexao conexao = new Conexao();
@@ -213,10 +210,12 @@ public class VendaDao {
         return new SimpleDateFormat("yyyy-MM").format(data);
     }
 
-    public List<Venda> buscarPorData(Date data) throws ParseException {
+    public List<Venda> buscarPorData(LocalDate data) throws ParseException {
         List<Venda> vendas = new ArrayList<>();
         
-        String dataS = Util.getDataStringSql(data);
+        String dataS = Util.obterAnoMesDiaEmString(data);
+        
+        System.out.println(dataS);
                         
         try {
             Conexao conexao = new Conexao();

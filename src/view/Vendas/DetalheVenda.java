@@ -8,7 +8,6 @@ package view.Vendas;
 import controller.Vendas.DetalheVendaController;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import src.view.Itens.*;
 
 /**
  *

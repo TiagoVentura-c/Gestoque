@@ -5,21 +5,19 @@
  */
 package dao.modelDao;
 
-import static dao.modelDao.VendaDao.getDataString;
+import controller.Utils.Util;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static javax.management.Query.and;
 
 import model.Compra;
 import model.Item;
-import model.Unidade;
 import model.Venda;
 import model.VendaItem;
 import src.dao.Conexao;
@@ -33,11 +31,11 @@ public class CompraDao {
     
     public static void main(String[] args) throws ParseException {
         
-        List<Compra> compras = buscarCompras(19);
+        /*  List<Compra> compras = buscarCompras(19);
         
         for(Compra c: compras)
-            System.out.printf("descricao=%s, idVenda = %d, idIten=%d  \n", 
-                    c.getItem().getDescricao(), c.getVenda().getId(), c.getItem().getId());
+        System.out.printf("descricao=%s, idVenda = %d, idIten=%d  \n",
+        c.getItem().getDescricao(), c.getVenda().getId(), c.getItem().getId());*/
         
     }
     
@@ -196,29 +194,16 @@ public class CompraDao {
            
     }
 
-    public List<VendaItem> buscarComprasPorItem(List<Venda> vendas, Item i) {
-       List<VendaItem> vendaItems = new ArrayList<>();
-       
-       /*select sum(compras.quantidade), sum(compras.valor)
-        from compras join items, vendas on compras.id_venda = vendas.id and compras.id_item = items.id
-        where vendas.data_compra between "2021-11" and "2021-12" and compras.id_item = 1;
-        */
-   
-       return vendaItems;    
-    }
-
-    public VendaItem buscarComprasPorItem(Date data, Item i) {
+    public VendaItem buscarComprasPorItem(LocalDateTime data, Item i) {
         VendaItem vendaItem = new VendaItem();
-        vendaItem.setData(data);
-        vendaItem.setDescricao(i.getDescricao());
+        vendaItem.setData(data);        
+        vendaItem.setDescricao(i.getDescricao()); 
         vendaItem.setUnidade(i.getUnidade().getUnidade());
-        
-        String mesActual = getDataString(data);
-        data.setMonth(data.getMonth()+1);
-        String mesSeguinte = getDataString(data);
-        
-        System.out.println(mesActual + "  "+ mesSeguinte);
-        System.out.println(i.getDescricao() +" "+ i.getId());
+
+        String mesActual = Util.obterMesEAnoEmString(data);
+        data = data.plusMonths(1);        
+        String mesSeguinte = Util.obterMesEAnoEmString(data);
+
         
         try {
             Conexao conexao = new Conexao();
@@ -245,11 +230,13 @@ public class CompraDao {
         return vendaItem;
     }
 
-    public List<VendaItem> buscarComprasPorItemList(Date data, List<Item> is) {
+    public List<VendaItem> buscarComprasPorItemList(LocalDateTime data, List<Item> is) {
         List<VendaItem> vendaItems = new ArrayList<>();
+       
+        is.forEach(i -> {
+             vendaItems.add(buscarComprasPorItem(data, i)); 
+        });
         
-        for(Item i: is)
-            vendaItems.add(buscarComprasPorItem(data, i)); 
         return vendaItems;
     }
     

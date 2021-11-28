@@ -7,6 +7,9 @@ package controller.Utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
@@ -34,4 +37,27 @@ public class Util {
         return new SimpleDateFormat("yyyy/MM").format(data);
     }
     
+   public static String obterMesEAnoEmString(LocalDateTime d){
+        return d.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+    }
+   
+   public static String obterMesEAnoEmString(LocalDate d){
+        return d.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+    }
+   
+   public static String obterAnoMesDiaEmString(LocalDate d){
+        return d.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    }
+   
+    public static String obterDataEmString(LocalDateTime d){
+        return d.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+    }
+    
+    public static LocalDateTime formatarStringEmData(String d){
+        return LocalDateTime.parse(d, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+    }
+    
+    public static LocalDate formatarStringEmDataBarra(String d){
+        return LocalDate.parse(d, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    }
 }

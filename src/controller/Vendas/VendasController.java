@@ -8,7 +8,9 @@ package controller.Vendas;
 import controller.Helper.Vendas.VendasControllerHelper;
 import dao.modelDao.VendaDao;
 import java.text.ParseException;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import model.Venda;
 import view.TelaPrincipal;
@@ -27,8 +29,8 @@ public class VendasController {
     }
 
     public static void setarTabela() throws ParseException {
-        Date data = new Date();
-        VendasController.helper.setarAnoEMes(data);
+        LocalDateTime data = LocalDateTime.now();
+        VendasController.helper.setarAnoEMes(data);        
         
         List<Venda> vendas = VendaDao.buscarPorMes(data);
         
@@ -40,25 +42,32 @@ public class VendasController {
     }
 
     public void buscarMesEANo() throws ParseException {
-       Date data = VendasController.helper.obterMesEANoSelecionado();
+       LocalDateTime data = VendasController.helper.obterMesEANoSelecionado();
        
        List<Venda> vendas = VendaDao.buscarPorMes(data); 
        
        if(!vendas.isEmpty())
        VendasController.helper.setarTela(vendas, data);
-       else
-           VendasController.helper.imprime("Nenhuma venda encontrada nesta data");
+       else{ 
+        VendasController.helper.setarTelaVazia(data);
+        VendasController.helper.imprime("Nenhuma venda encontrada nesta data");
+       }
+           
     }
 
     public void buscarData() throws ParseException   {
-        Date data = VendasController.helper.obterData();
-        
+        LocalDate data = VendasController.helper.obterData();
         List<Venda> vendas = vendaDao.buscarPorData(data); 
         
+        LocalDateTime d = LocalDateTime.of(data, LocalTime.MIN);
+        
         if(!vendas.isEmpty())
-            VendasController.helper.setarTela(vendas, data);
-       else
-           VendasController.helper.imprime("Nenhuma venda encontrada nesta data");
+       VendasController.helper.setarTela(vendas, d);
+       else{ 
+        VendasController.helper.setarTelaVazia(d);
+        VendasController.helper.imprime("Nenhuma venda encontrada nesta data");
+       }
+        
     }
 
     public Venda obterVendaSeleciona() {

@@ -7,6 +7,8 @@ package controller.Helper.Vendas;
 
 import controller.Utils.Util;
 import java.awt.Component;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -31,7 +33,7 @@ public class TotalVendaItemControllerHelper {
     List<String> ms = Arrays.asList("JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO", "SET", "OUT", "NOV", "DEZ"); 
     List<Integer> anos = Arrays.asList(2021, 2022, 2023, 2024);
 
-    public void setarTela(List<Item> items, Date data) {
+    public void setarTela(List<Item> items, LocalDateTime data) {
         DefaultComboBoxModel comboBoxModelMeses = (DefaultComboBoxModel) view.getjComboBoxMes().getModel();
         DefaultComboBoxModel comboBoxModelAnos = (DefaultComboBoxModel) view.getjComboBoxAno().getModel();
         DefaultComboBoxModel comboBoxModelItens = (DefaultComboBoxModel) view.getjComboBoxItem().getModel();
@@ -39,23 +41,30 @@ public class TotalVendaItemControllerHelper {
         comboBoxModelMeses.removeAllElements();
         comboBoxModelAnos.removeAllElements();
         
-        for(String m: ms)
+        ms.forEach(m -> {
             comboBoxModelMeses.addElement(m);
+        });
         
-        for(Integer ano: anos)
+        anos.forEach(ano -> {
             comboBoxModelAnos.addElement(ano);
+        });
         
-        for(Item i: items)
+        items.forEach(i -> {
             comboBoxModelItens.addElement(i.getDescricao());
+        });
         
-        view.getjComboBoxMes().setSelectedIndex(data.getMonth());
-        view.getjComboBoxAno().setSelectedItem(Integer.parseInt(Util.getAno(data)));
+        view.getjComboBoxMes().setSelectedIndex(data.getMonthValue()-1);
+        view.getjComboBoxAno().setSelectedItem(data.getYear());
        }
     
-    public Date obterMesEANoSelecionado() {
-        Date d = new Date();
-        d.setMonth(view.getjComboBoxMes().getSelectedIndex());
-        d.setYear(anos.get(view.getjComboBoxAno().getSelectedIndex())-1900);  
+    public LocalDateTime obterMesEANoSelecionado() {
+        LocalDateTime d;
+        int ano = anos.get(view.getjComboBoxAno().getSelectedIndex());
+        int mes = view.getjComboBoxMes().getSelectedIndex()+1;
+        
+        System.out.println(ano +" "+mes);
+        d = LocalDateTime.of(ano, mes , 1, 1, 1);
+        
         return d;
     }
 
@@ -64,17 +73,17 @@ public class TotalVendaItemControllerHelper {
     }
    
 
-    public void setarTabela(VendaItem vendaItems, Date data) {
+    public void setarTabela(VendaItem vendaItems, LocalDateTime data) {
      
      DefaultTableModel tableModel =   (DefaultTableModel) view.getjTableTabela().getModel();
      tableModel.setNumRows(0);
             tableModel.addRow(new Object[]{
                 vendaItems.getDescricao(),
-                Util.getAnoEMes(data),
+                Util.obterMesEAnoEmString(data),
                 vendaItems.getQuantidade() +" "+ vendaItems.getUnidade(),
                 vendaItems.getTotal() +" Kz"
              } );
-       view.getjLabelValorTotalDe().setText("Valor total de "+ Util.getAnoEMes(data));
+       view.getjLabelValorTotalDe().setText("Valor total de "+ Util.obterMesEAnoEmString(data));
        view.getjTextFieldValorTotal().setText(vendaItems.getTotal()+" Kz");
     }
     
@@ -83,16 +92,19 @@ public class TotalVendaItemControllerHelper {
         JOptionPane.showMessageDialog(rootPane, msm);
     } 
 
-    public void setarTabela(List<VendaItem> vendasItems, Date data) {
+    public void setarTabela(List<VendaItem> vendasItems, LocalDateTime data) {
         
-        float valorTotal = 0.f;
+     float valorTotal = 0.f;
+     
      
      DefaultTableModel tableModel =   (DefaultTableModel) view.getjTableTabela().getModel();
      tableModel.setNumRows(0);
+     
             for(VendaItem vendaItems: vendasItems){
-            tableModel.addRow(new Object[]{
+                System.out.println(vendaItems.getQuantidade());
+                tableModel.addRow(new Object[]{
                 vendaItems.getDescricao(),
-                Util.getAnoEMes(data),
+                Util.obterMesEAnoEmString(vendaItems.getData()),
                 vendaItems.getQuantidade() +" "+ vendaItems.getUnidade(),
                 vendaItems.getTotal() +" Kz"
              } );
@@ -100,7 +112,10 @@ public class TotalVendaItemControllerHelper {
             valorTotal += vendaItems.getTotal();
            }
             
-       view.getjLabelValorTotalDe().setText("Valor total de "+ Util.getAnoEMes(data));
+            
+       view.getjLabelValorTotalDe().setText("Valor total de "+ Util.obterMesEAnoEmString(data));
        view.getjTextFieldValorTotal().setText(valorTotal+" Kz");
+       
+       
     }
 }

@@ -6,11 +6,9 @@
 package view.Estoque;
 
 import controller.Estoque.NovoItemEstoqueController;
-import controller.Itens.NovoItemController;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import model.Estoque;
-import src.view.Itens.*;
 
 /**
  *

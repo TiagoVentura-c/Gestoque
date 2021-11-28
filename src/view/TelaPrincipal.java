@@ -5,6 +5,7 @@
  */
 package view;
 
+import controller.Despesa.DespesasController;
 import controller.Estoque.EstoqueController;
 import controller.Estoque.NovoItemEstoqueController;
 import controller.Itens.ItensCotroller;
@@ -21,6 +22,8 @@ import javax.swing.JTextField;
 import model.Estoque;
 import model.Item;
 import model.Venda;
+import view.Despesas.NovaDespesa;
+import view.Despesas.TotalDespesasPorItem;
 import view.Estoque.NovoItemEstoque;
 import view.Itens.EditarItem;
 import view.Itens.NovoItem;
@@ -41,6 +44,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private final ItensCotroller itensCotroller;
     private final EstoqueController estoqueController;
     private final VendasController vendasController;
+    private final DespesasController despesasController;
     
     public TelaPrincipal() {
         initComponents();
@@ -53,6 +57,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         estoqueController = new EstoqueController(this);
         
         vendasController = new VendasController(this);
+       
+        despesasController = new DespesasController(this);
     }
     
     public void visisbleFalse(){
@@ -74,7 +80,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         MenuLateral = new javax.swing.JPanel();
         jButtonVendas = new javax.swing.JButton();
-        jButtonEstoques = new javax.swing.JButton();
         jButtonDesoesas = new javax.swing.JButton();
         jButtonItens = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
@@ -140,6 +145,24 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jButton_Vendas_Detalhe = new javax.swing.JButton();
         jLabel_Vendas_vendasDe = new javax.swing.JLabel();
         jPanelDespesa = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jButton_Despesas_buscar_mesAno = new javax.swing.JButton();
+        jSeparator4 = new javax.swing.JSeparator();
+        jLabel17 = new javax.swing.JLabel();
+        jComboBox_Despesas_meses = new javax.swing.JComboBox();
+        jComboBox_Despesas_anos = new javax.swing.JComboBox();
+        jPanelOpcoes3 = new javax.swing.JPanel();
+        jButton_Despesas_totalDespesasPorItem = new javax.swing.JButton();
+        jPanelListaItens3 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTable_Despesas_tabela = new javax.swing.JTable();
+        jTextField_Despesas_total = new javax.swing.JTextField();
+        jLabel_Despesas_totalDe = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        jButton_Despesas_novaDespesa = new javax.swing.JButton();
+        jLabel_Despesas_despesasDe = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Home");
@@ -158,17 +181,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 jButtonVendasActionPerformed(evt);
             }
         });
-        MenuLateral.add(jButtonVendas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 210, 40));
-
-        jButtonEstoques.setBackground(javax.swing.UIManager.getDefaults().getColor("windowBorder"));
-        jButtonEstoques.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonEstoques.setText("Estoque");
-        jButtonEstoques.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonEstoquesActionPerformed(evt);
-            }
-        });
-        MenuLateral.add(jButtonEstoques, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 210, 40));
+        MenuLateral.add(jButtonVendas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 210, 40));
 
         jButtonDesoesas.setBackground(javax.swing.UIManager.getDefaults().getColor("windowBorder"));
         jButtonDesoesas.setForeground(new java.awt.Color(255, 255, 255));
@@ -178,7 +191,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 jButtonDesoesasActionPerformed(evt);
             }
         });
-        MenuLateral.add(jButtonDesoesas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 210, 40));
+        MenuLateral.add(jButtonDesoesas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 210, 40));
 
         jButtonItens.setBackground(javax.swing.UIManager.getDefaults().getColor("windowBorder"));
         jButtonItens.setForeground(new java.awt.Color(255, 255, 255));
@@ -622,14 +635,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanelVenda.setBackground(new java.awt.Color(204, 204, 204));
 
         jPanel6.setBackground(new java.awt.Color(71, 120, 197));
-        jPanel6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jPanel6MousePressed(evt);
-            }
-        });
         jPanel6.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 jPanel6MouseDragged(evt);
+            }
+        });
+        jPanel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel6MousePressed(evt);
             }
         });
 
@@ -789,12 +802,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(jPanelListaItens2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelListaItens2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 694, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 658, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanelListaItens2Layout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addGap(8, 8, 8)
-                        .addComponent(jTextField_Vendas_total, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(jTextField_Vendas_total, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 36, Short.MAX_VALUE))
         );
         jPanelListaItens2Layout.setVerticalGroup(
             jPanelListaItens2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -810,7 +823,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGap(8, 8, 8))
         );
 
-        jButton_Vendas_NovaVenda.setText("Novo Venda");
+        jButton_Vendas_NovaVenda.setText("Nova Venda");
         jButton_Vendas_NovaVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_Vendas_NovaVendaActionPerformed(evt);
@@ -882,17 +895,220 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jPanelContent.add(jPanelVenda);
 
-        jPanelDespesa.setBackground(new java.awt.Color(102, 153, 255));
+        jPanelDespesa.setBackground(new java.awt.Color(204, 204, 204));
+
+        jPanel8.setBackground(new java.awt.Color(255, 51, 51));
+        jPanel8.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel8MouseDragged(evt);
+            }
+        });
+        jPanel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel8MousePressed(evt);
+            }
+        });
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setText("Mês:");
+
+        jButton_Despesas_buscar_mesAno.setBackground(new java.awt.Color(204, 204, 204));
+        jButton_Despesas_buscar_mesAno.setText("Buscar");
+        jButton_Despesas_buscar_mesAno.setBorder(null);
+        jButton_Despesas_buscar_mesAno.setBorderPainted(false);
+        jButton_Despesas_buscar_mesAno.setFocusable(false);
+        jButton_Despesas_buscar_mesAno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_Despesas_buscar_mesAnoActionPerformed(evt);
+            }
+        });
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setText("Despesas");
+
+        jComboBox_Despesas_meses.setMaximumRowCount(15);
+        jComboBox_Despesas_meses.setBorder(null);
+        jComboBox_Despesas_meses.setFocusable(false);
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(195, 195, 195)
+                .addComponent(jComboBox_Despesas_anos, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBox_Despesas_meses, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton_Despesas_buscar_mesAno, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel14)
+                .addGap(121, 121, 121))
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel17)
+                    .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel16)
+                        .addComponent(jButton_Despesas_buscar_mesAno, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBox_Despesas_meses, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBox_Despesas_anos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+
+        jButton_Despesas_totalDespesasPorItem.setText(" Total de despesas por item");
+        jButton_Despesas_totalDespesasPorItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_Despesas_totalDespesasPorItemActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelOpcoes3Layout = new javax.swing.GroupLayout(jPanelOpcoes3);
+        jPanelOpcoes3.setLayout(jPanelOpcoes3Layout);
+        jPanelOpcoes3Layout.setHorizontalGroup(
+            jPanelOpcoes3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelOpcoes3Layout.createSequentialGroup()
+                .addComponent(jButton_Despesas_totalDespesasPorItem)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanelOpcoes3Layout.setVerticalGroup(
+            jPanelOpcoes3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelOpcoes3Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jButton_Despesas_totalDespesasPorItem)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jTable_Despesas_tabela.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Data", "Item", "Categoria", "Valor gasto"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable_Despesas_tabela.setGridColor(new java.awt.Color(255, 255, 255));
+        jScrollPane5.setViewportView(jTable_Despesas_tabela);
+
+        jTextField_Despesas_total.setEditable(false);
+        jTextField_Despesas_total.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_Despesas_totalActionPerformed(evt);
+            }
+        });
+
+        jLabel_Despesas_totalDe.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
+        jLabel_Despesas_totalDe.setText("Total:");
+
+        javax.swing.GroupLayout jPanelListaItens3Layout = new javax.swing.GroupLayout(jPanelListaItens3);
+        jPanelListaItens3.setLayout(jPanelListaItens3Layout);
+        jPanelListaItens3Layout.setHorizontalGroup(
+            jPanelListaItens3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelListaItens3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelListaItens3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 638, Short.MAX_VALUE)
+                    .addGroup(jPanelListaItens3Layout.createSequentialGroup()
+                        .addComponent(jLabel_Despesas_totalDe)
+                        .addGap(8, 8, 8)
+                        .addComponent(jTextField_Despesas_total, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+        jPanelListaItens3Layout.setVerticalGroup(
+            jPanelListaItens3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelListaItens3Layout.createSequentialGroup()
+                .addContainerGap(19, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelListaItens3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelListaItens3Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel_Despesas_totalDe))
+                    .addComponent(jTextField_Despesas_total, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8))
+        );
+
+        jButton_Despesas_novaDespesa.setText("Nova despesa");
+        jButton_Despesas_novaDespesa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_Despesas_novaDespesaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addContainerGap(491, Short.MAX_VALUE)
+                .addComponent(jButton_Despesas_novaDespesa, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton_Despesas_novaDespesa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jLabel_Despesas_despesasDe.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel_Despesas_despesasDe.setText("Despesas de 2021-11: ");
 
         javax.swing.GroupLayout jPanelDespesaLayout = new javax.swing.GroupLayout(jPanelDespesa);
         jPanelDespesa.setLayout(jPanelDespesaLayout);
         jPanelDespesaLayout.setHorizontalGroup(
             jPanelDespesaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 899, Short.MAX_VALUE)
+            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanelDespesaLayout.createSequentialGroup()
+                .addComponent(jPanelOpcoes3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelDespesaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanelListaItens3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_Despesas_despesasDe, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 14, Short.MAX_VALUE))
         );
         jPanelDespesaLayout.setVerticalGroup(
             jPanelDespesaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 675, Short.MAX_VALUE)
+            .addGroup(jPanelDespesaLayout.createSequentialGroup()
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelDespesaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanelOpcoes3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanelDespesaLayout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(jLabel_Despesas_despesasDe)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanelListaItens3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         jPanelContent.add(jPanelDespesa);
@@ -933,6 +1149,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         visisbleFalse();
         jPanelDespesa.setVisible(true);
+        
+        this.despesasController.setarTela();
     }//GEN-LAST:event_jButtonDesoesasActionPerformed
 
     private void jButtonItensActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonItensActionPerformed
@@ -973,13 +1191,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         NovoItemEstoqueController.setarTela();
         n.setVisible(true);
     }//GEN-LAST:event_jButton_Estoque_novoItemActionPerformed
-
-    private void jButtonEstoquesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEstoquesActionPerformed
-        visisbleFalse();
-        this.estoqueController.setarTabela();
-        jPanelEstoque.setVisible(true);   
-        
-    }//GEN-LAST:event_jButtonEstoquesActionPerformed
 
     private void jPanel6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MousePressed
         // TODO add your handling code here:
@@ -1064,17 +1275,48 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_Estoque_apagarActionPerformed
 
     private void jButton_Vendas_buscarDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Vendas_buscarDataActionPerformed
+
         try {
             // TODO add your handling code here:
             this.vendasController.buscarData();
         } catch (ParseException ex) {
             Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }//GEN-LAST:event_jButton_Vendas_buscarDataActionPerformed
 
     private void jTextField_Vendas_totalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_Vendas_totalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField_Vendas_totalActionPerformed
+
+    private void jButton_Despesas_buscar_mesAnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Despesas_buscar_mesAnoActionPerformed
+        // TODO add your handling code here:
+        this.despesasController.buscar();
+    }//GEN-LAST:event_jButton_Despesas_buscar_mesAnoActionPerformed
+
+    private void jPanel8MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseDragged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel8MouseDragged
+
+    private void jPanel8MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel8MousePressed
+
+    private void jButton_Despesas_totalDespesasPorItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Despesas_totalDespesasPorItemActionPerformed
+        // TODO add your handling code here:
+        TotalDespesasPorItem tdpi = new TotalDespesasPorItem();
+        tdpi.setVisible(true);
+    }//GEN-LAST:event_jButton_Despesas_totalDespesasPorItemActionPerformed
+
+    private void jTextField_Despesas_totalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_Despesas_totalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_Despesas_totalActionPerformed
+
+    private void jButton_Despesas_novaDespesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Despesas_novaDespesaActionPerformed
+        // TODO add your handling code here:
+        NovaDespesa nv = new NovaDespesa();
+        nv.setVisible(true);
+    }//GEN-LAST:event_jButton_Despesas_novaDespesaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1255,15 +1497,69 @@ public class TelaPrincipal extends javax.swing.JFrame {
         this.jComboBox_Vendas_ano = jComboBox_Vendas_ano;
     }
     
+    ///////////////
+    
+    public JComboBox getjComboBox_Despesas_anos() {
+        return jComboBox_Despesas_anos;
+    }
+
+    public void setjComboBox_Despesas_anos(JComboBox jComboBox_Despesas_anos) {
+        this.jComboBox_Despesas_anos = jComboBox_Despesas_anos;
+    }
+
+    public JComboBox getjComboBox_Despesas_meses() {
+        return jComboBox_Despesas_meses;
+    }
+
+    public void setjComboBox_Despesas_meses(JComboBox jComboBox_Despesas_meses) {
+        this.jComboBox_Despesas_meses = jComboBox_Despesas_meses;
+    }
+
+    public JLabel getjLabel_Despesas_despesasDe() {
+        return jLabel_Despesas_despesasDe;
+    }
+
+    public void setjLabel_Despesas_despesasDe(JLabel jLabel_Despesas_despesasDe) {
+        this.jLabel_Despesas_despesasDe = jLabel_Despesas_despesasDe;
+    }
+
+    public JLabel getjLabel_Despesas_totalDe() {
+        return jLabel_Despesas_totalDe;
+    }
+
+    public void setjLabel_Despesas_totalDe(JLabel jLabel_Despesas_totalDe) {
+        this.jLabel_Despesas_totalDe = jLabel_Despesas_totalDe;
+    }
+
+    public JTable getjTable_Despesas_tabela() {
+        return jTable_Despesas_tabela;
+    }
+
+    public void setjTable_Despesas_tabela(JTable jTable_Despesas_tabela) {
+        this.jTable_Despesas_tabela = jTable_Despesas_tabela;
+    }
+
+    public JTextField getjTextField_Despesas_total() {
+        return jTextField_Despesas_total;
+    }
+
+    public void setjTextField_Despesas_total(JTextField jTextField_Despesas_total) {
+        this.jTextField_Despesas_total = jTextField_Despesas_total;
+    }
+    
+    
+    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel MenuLateral;
     private javax.swing.JButton jButton9;
     private javax.swing.JButton jButtonDesoesas;
-    private javax.swing.JButton jButtonEstoques;
     private javax.swing.JButton jButtonItens;
     private javax.swing.JButton jButtonVendas;
+    private javax.swing.JButton jButton_Despesas_buscar_mesAno;
+    private javax.swing.JButton jButton_Despesas_novaDespesa;
+    private javax.swing.JButton jButton_Despesas_totalDespesasPorItem;
     private javax.swing.JButton jButton_Estoque_apagar;
     private javax.swing.JButton jButton_Estoque_buscar;
     private javax.swing.JButton jButton_Estoque_editar;
@@ -1277,6 +1573,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton_Vendas_NovaVenda;
     private javax.swing.JButton jButton_Vendas_buscarData;
     private javax.swing.JButton jButton_Vendas_totalItensVendidos;
+    private javax.swing.JComboBox jComboBox_Despesas_anos;
+    private javax.swing.JComboBox jComboBox_Despesas_meses;
     private javax.swing.JComboBox jComboBox_Vendas_ano;
     private javax.swing.JComboBox jComboBox_Vendas_meses;
     private javax.swing.JLabel jLabel1;
@@ -1284,6 +1582,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1292,6 +1593,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel_Despesas_despesasDe;
+    private javax.swing.JLabel jLabel_Despesas_totalDe;
     private javax.swing.JLabel jLabel_Vendas_vendasDe;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -1300,6 +1603,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JPanel jPanelContent;
     private javax.swing.JPanel jPanelDespesa;
     private javax.swing.JPanel jPanelEstoque;
@@ -1307,19 +1612,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelListaItens;
     private javax.swing.JPanel jPanelListaItens1;
     private javax.swing.JPanel jPanelListaItens2;
+    private javax.swing.JPanel jPanelListaItens3;
     private javax.swing.JPanel jPanelOpcoes;
     private javax.swing.JPanel jPanelOpcoes1;
     private javax.swing.JPanel jPanelOpcoes2;
+    private javax.swing.JPanel jPanelOpcoes3;
     private javax.swing.JPanel jPanelVenda;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JTable jTable_Despesas_tabela;
     private javax.swing.JTable jTable_Estoque_tabela;
     private javax.swing.JTable jTable_Itens_TabelaItens;
     private javax.swing.JTable jTable_Vendas_tabela;
+    private javax.swing.JTextField jTextField_Despesas_total;
     private javax.swing.JTextField jTextField_Estoque_codigp;
     private javax.swing.JTextField jTextField_Estoque_descricao;
     private javax.swing.JTextField jTextField_Itens_Codigo;

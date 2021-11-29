@@ -14,7 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import model.Unidade;
-import src.dao.Conexao;
+import dao.Conexao;
 
 /**
  *

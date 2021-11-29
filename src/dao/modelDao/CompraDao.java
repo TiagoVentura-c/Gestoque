@@ -20,7 +20,7 @@ import model.Compra;
 import model.Item;
 import model.Venda;
 import model.VendaItem;
-import src.dao.Conexao;
+import dao.Conexao;
 
 /**
  *

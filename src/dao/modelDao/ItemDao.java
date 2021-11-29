@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 import model.Categoria;
 import model.Item;
 import model.Unidade;
-import src.dao.Conexao;
+import dao.Conexao;
 
 /**
  *

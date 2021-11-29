@@ -18,7 +18,7 @@ import model.Despesas.CategoriaDespesa;
 import model.Despesas.Despesa;
 import model.Despesas.DetalheGasto;
 import model.Despesas.ItemDespesa;
-import src.dao.Conexao;
+import dao.Conexao;
 
 /**
  *

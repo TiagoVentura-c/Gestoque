@@ -1,7 +1,5 @@
 package model;
 
-import sun.util.resources.LocaleData;
-
 public class Compra {
     private int id;
     private Venda venda;

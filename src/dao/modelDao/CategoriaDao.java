@@ -14,7 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import model.Categoria;
-import src.dao.Conexao;
+import dao.Conexao;
 import model.Categoria;
 
 /**

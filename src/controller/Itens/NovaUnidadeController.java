@@ -6,6 +6,7 @@
 package controller.Itens;
 
 import dao.modelDao.UnidadeDao;
+import java.io.IOException;
 import javax.swing.JOptionPane;
 import model.Unidade;
 import view.Itens.NovaUnidade;
@@ -24,7 +25,7 @@ public class NovaUnidadeController {
         this.view = view;
     }
 
-    public void salvar() {
+    public void salvar() throws IOException {
         Unidade unidade = new Unidade();
         unidade.setUnidade(view.getjTextFieldUnidade().getText().toString());
         

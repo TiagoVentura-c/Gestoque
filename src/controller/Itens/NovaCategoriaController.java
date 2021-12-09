@@ -6,6 +6,7 @@
 package controller.Itens;
 
 import dao.modelDao.CategoriaDao;
+import java.io.IOException;
 import javax.swing.JOptionPane;
 import model.Categoria;
 import view.Itens.NovaCategoria;
@@ -22,7 +23,7 @@ public class NovaCategoriaController {
         this.view = view;
     }
 
-    public void salvar() {
+    public void salvar() throws IOException {
         Categoria categoria = new Categoria();
         categoria.setCategoria(view.getjTextFieldCategoria().getText().toString());
         

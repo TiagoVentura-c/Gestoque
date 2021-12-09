@@ -7,6 +7,7 @@ package controller.Despesa;
 
 import controller.Helper.Despesa.DespesaControllerHelper;
 import dao.modelDao.DespesaDao;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import model.Despesas.Despesa;
@@ -33,7 +34,7 @@ public class DespesasController {
         despesaDao = new DespesaDao();
     }
 
-    public void setarTela() {
+    public void setarTela() throws IOException {
         List<Despesa> despesas = despesaDao.buscarDespesasPorData(data);
         
         if(!despesas.isEmpty())
@@ -42,7 +43,7 @@ public class DespesasController {
             this.helper.imprime("Nenhuma despesa encontrada no mês corrente");
     }
 
-    public void buscar() {
+    public void buscar() throws IOException {
         LocalDate dataSelecionada = this.helper.getData();
         List<Despesa> despesas = despesaDao.buscarDespesasPorData(dataSelecionada);
         
@@ -52,7 +53,7 @@ public class DespesasController {
             this.helper.imprime("Nenhuma despesa encontrada nesta data"); 
     }
     
-    public static void atualizaTabela() {
+    public static void atualizaTabela() throws IOException {
         List<Despesa> despesas = despesaDao.buscarDespesasPorData(data);
         
         if(!despesas.isEmpty())

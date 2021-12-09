@@ -6,6 +6,8 @@
 package controller.Vendas;
 
 import dao.modelDao.ItemDao;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import model.Compra;
@@ -23,13 +25,13 @@ public class SelecionarItensController {
     
     ItemDao itemDao = new ItemDao();
     
-    private static List<Item> itens = ItemDao.listar();
+    private static List<Item> itens ;
     
     private final SelecionarItem view;
 
-    public SelecionarItensController(SelecionarItem view) {
+    public SelecionarItensController(SelecionarItem view){
         this.view = view;
-        
+        itens = ItemDao.listar();
     }
     
     

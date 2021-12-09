@@ -6,6 +6,9 @@
 package view.Itens;
 
 import controller.Itens.NovaUnidadeController;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTextField;
 
 /**
@@ -96,8 +99,12 @@ public class NovaUnidade extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        // TODO add your handling code here:
-        this.controller.salvar();
+        try {
+            // TODO add your handling code here:
+            this.controller.salvar();
+        } catch (IOException ex) {
+            Logger.getLogger(NovaUnidade.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     /**

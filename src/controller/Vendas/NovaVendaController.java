@@ -8,6 +8,8 @@ package controller.Vendas;
 import controller.Helper.Vendas.NovaVendaControllerHelper;
 import dao.modelDao.CompraDao;
 import dao.modelDao.VendaDao;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -53,7 +55,7 @@ public class NovaVendaController {
         NovaVendaController.helper.setartabela(compras);
     }
 
-    public void finalizar() throws ParseException {
+    public void finalizar() {
         
         Date d = new Date();
         Venda v = this.helper.obterVenda();

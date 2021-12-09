@@ -9,6 +9,8 @@ import controller.Helper.Itens.NovoItemControllerHelper;
 import dao.modelDao.CategoriaDao;
 import dao.modelDao.ItemDao;
 import dao.modelDao.UnidadeDao;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import model.Categoria;
 import model.Item;
@@ -22,6 +24,7 @@ import view.Itens.NovoItem;
 public class NovoItemController {
     
     private final NovoItemControllerHelper helper;
+    private final NovoItem view;
     
     private static UnidadeDao unidadeDao = new UnidadeDao();
     private static CategoriaDao categoriaDao = new CategoriaDao();
@@ -31,9 +34,10 @@ public class NovoItemController {
     
     public NovoItemController(NovoItem view){
         this.helper = new NovoItemControllerHelper(view);
+        this.view = view;
     }
 
-    public  void salvarItem() {
+    public  void salvarItem() throws IOException, ClassNotFoundException, SQLException {
         Item i = this.helper.getItem();
         
         //TODO verificaçoes
@@ -41,11 +45,13 @@ public class NovoItemController {
         ItemDao.inserir(i);
         
         this.helper.imprime("Item cadastrado com sucesso");
+        view.dispose();
         preencherTela();
         ItensCotroller.preencherTabelaBackground();
+        
     }
 
-    public void preencherTela() {
+    public void preencherTela() throws IOException {
         List<Unidade> unidades = unidadeDao.listar();
         List<Categoria> categorias = categoriaDao.listar();
         

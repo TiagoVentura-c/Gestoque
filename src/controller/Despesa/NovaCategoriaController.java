@@ -7,6 +7,7 @@ package controller.Despesa;
 
 import dao.modelDao.DespesaDao;
 import java.awt.Component;
+import java.io.IOException;
 import javax.swing.JOptionPane;
 import model.Despesas.CategoriaDespesa;
 import view.Despesas.NovaCategoria;
@@ -24,8 +25,9 @@ public class NovaCategoriaController {
         despesaDao = new DespesaDao();
     }
 
-    public void salvar() {
+    public void salvar() throws IOException {
         CategoriaDespesa cd = new CategoriaDespesa();
+        cd.setCategoria(view.getjTextFieldCategoria().getText());
         despesaDao.inserirCategoria(cd);
         imprime("Categoria adicionada com succeso");
         view.dispose();

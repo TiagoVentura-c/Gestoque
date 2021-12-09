@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import model.Estoque;
 import model.Item;
 import dao.Conexao;
+import java.io.IOException;
 
 /**
  *
@@ -25,21 +26,13 @@ public class EstoqueDao {
     
     public static void main(String[] args) {
        
-        //actualizar(e);
-        
-        remover(1);
-                
-        
-        List<Estoque> es = listar();
-        
-        for(Estoque o : es)
-            System.out.println("item = " + o.getItem().getDescricao()+" quntidade= "+ o.getQuantidade()+" "+ o.getItem().getUnidade().getUnidade());
-
+        //   
+       
     }
     
     private ItemDao itemDao = new ItemDao();
     
-    public static void inserir(Estoque estoque){
+    public static void inserir(Estoque estoque) throws IOException{
         try {
             Conexao conexao = new Conexao();
             String sql = " insert into estoques(id, id_item, quantidade) values (null, ?, ?)";
@@ -55,7 +48,7 @@ public class EstoqueDao {
         }
     }
 
-    public static void remover(int id){
+    public static void remover(int id) throws IOException{
         try {
             Conexao conexao = new Conexao();
             String sql = " DELETE from estoques where id = ?";
@@ -71,7 +64,7 @@ public class EstoqueDao {
         
     }
     
-    public static Estoque buscar(int id){
+    public static Estoque buscar(int id) throws IOException{
         
         Estoque estoqueBuscado = new Estoque();
         Item i = new Item();
@@ -98,7 +91,7 @@ public class EstoqueDao {
         return estoqueBuscado;
     }
     
-    public void actualizar(Estoque estoque){
+    public void actualizar(Estoque estoque) throws IOException{
         try {
             Conexao conexao = new Conexao();
             String sql = "UPDATE estoques SET quantidade = ? WHERE id = ?";
@@ -116,7 +109,7 @@ public class EstoqueDao {
         
     }
     
-    public static List<Estoque> listar(){
+    public static List<Estoque> listar() throws IOException{
         List<Estoque> estoques = new ArrayList<>();
         Item i = new Item();
         
@@ -146,7 +139,7 @@ public class EstoqueDao {
         return estoques;
     }
 
-    public List<Estoque> buscarFiltrado(String coluna, String palavra) {
+    public List<Estoque> buscarFiltrado(String coluna, String palavra) throws IOException {
         List<Estoque> estoques = new ArrayList<>();
         Item i = new Item();
         

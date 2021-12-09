@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 
 import model.Categoria;
 import dao.Conexao;
+import java.io.IOException;
 import model.Categoria;
 
 /**
@@ -23,7 +24,7 @@ import model.Categoria;
  */
 public class CategoriaDao{
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         
         Categoria categoria = new Categoria();
         //categoria.setCategoria("Tecnologias");
@@ -40,7 +41,7 @@ public class CategoriaDao{
         
     }
 
-    public static void inserir(Categoria categoria){
+    public static void inserir(Categoria categoria) throws IOException{
         try {
             Conexao conexao = new Conexao();
             String sql = " insert into categorias(id, categoria) values (null,?)";
@@ -55,7 +56,7 @@ public class CategoriaDao{
         }
     }
     
-    public static void remover(int id){
+    public static void remover(int id) throws IOException{
         try {
             Conexao conexao = new Conexao();
             String sql = " DELETE from categorias where id = ?";
@@ -71,7 +72,7 @@ public class CategoriaDao{
         
     }
     
-    public static Categoria buscar(int id){
+    public static Categoria buscar(int id) throws IOException{
         Categoria categoriaBuscada = new Categoria();
         try {
             Conexao conexao = new Conexao();
@@ -92,7 +93,7 @@ public class CategoriaDao{
         return categoriaBuscada;
     }
     
-    public static void actualizar(Categoria categoria){
+    public static void actualizar(Categoria categoria) throws IOException{
         try {
             Conexao conexao = new Conexao();
             String sql = "UPDATE categorias SET categoria= ? WHERE id = ?";
@@ -110,7 +111,7 @@ public class CategoriaDao{
         
     }
     
-    public static List<Categoria> listar(){
+    public static List<Categoria> listar() throws IOException{
         List<Categoria> categorias = new ArrayList<>();
         try {
             Conexao conexao = new Conexao();

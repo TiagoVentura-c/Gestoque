@@ -5,7 +5,11 @@
  */
 package view.Vendas;
 
+import com.itextpdf.text.DocumentException;
 import controller.Vendas.TotalVendaItemController;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,7 +28,7 @@ public class TotalVendasPorItem extends javax.swing.JFrame {
      * Creates new form NovoItem
      */
     private final TotalVendaItemController controller;
-    public TotalVendasPorItem() {
+    public TotalVendasPorItem() throws IOException, ClassNotFoundException, SQLException {
         initComponents();
         controller = new TotalVendaItemController(this);
         controller.setarTela();
@@ -41,10 +45,8 @@ public class TotalVendasPorItem extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableTabela = new javax.swing.JTable();
-        jComboBoxItem = new javax.swing.JComboBox();
         jComboBoxMes = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
         jLabelValorTotalDe = new javax.swing.JLabel();
@@ -62,9 +64,6 @@ public class TotalVendasPorItem extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jLabel5.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
-        jLabel5.setText("Item:");
 
         jTableTabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -118,10 +117,6 @@ public class TotalVendasPorItem extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jTextFieldValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBoxItem, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jComboBoxAno, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -145,10 +140,7 @@ public class TotalVendasPorItem extends javax.swing.JFrame {
                         .addComponent(jButtonBuscarMes))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel9)
-                        .addComponent(jComboBoxAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel5)
-                        .addComponent(jComboBoxItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jComboBoxAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -172,7 +164,7 @@ public class TotalVendasPorItem extends javax.swing.JFrame {
             }
         });
 
-        jButtonFinalizar.setText("Imprimir");
+        jButtonFinalizar.setText("Salvar Pdf");
         jButtonFinalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonFinalizarActionPerformed(evt);
@@ -184,7 +176,7 @@ public class TotalVendasPorItem extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(515, Short.MAX_VALUE)
+                .addContainerGap(505, Short.MAX_VALUE)
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonFinalizar)
@@ -209,8 +201,14 @@ public class TotalVendasPorItem extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButtonFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFinalizarActionPerformed
-        // TODO add your handling code here:
-        
+        try {
+            // TODO add your handling code here:
+            this.controller.salvarPdf();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(TotalVendasPorItem.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DocumentException ex) {
+            Logger.getLogger(TotalVendasPorItem.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonFinalizarActionPerformed
 
     private void jButtonBuscarMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarMesActionPerformed
@@ -259,7 +257,15 @@ public class TotalVendasPorItem extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TotalVendasPorItem().setVisible(true);
+                try {
+                    new TotalVendasPorItem().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(TotalVendasPorItem.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(TotalVendasPorItem.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(TotalVendasPorItem.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -281,13 +287,7 @@ public class TotalVendasPorItem extends javax.swing.JFrame {
         this.jComboBoxAno = jComboBoxAno;
     }
 
-    public JComboBox getjComboBoxItem() {
-        return jComboBoxItem;
-    }
-
-    public void setjComboBoxItem(JComboBox jComboBoxItem) {
-        this.jComboBoxItem = jComboBoxItem;
-    }
+    
 
     public JComboBox getjComboBoxMes() {
         return jComboBoxMes;
@@ -320,9 +320,7 @@ public class TotalVendasPorItem extends javax.swing.JFrame {
     private javax.swing.JButton jButtonBuscarMes;
     private javax.swing.JButton jButtonFinalizar;
     private javax.swing.JComboBox jComboBoxAno;
-    private javax.swing.JComboBox jComboBoxItem;
     private javax.swing.JComboBox jComboBoxMes;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelValorTotalDe;

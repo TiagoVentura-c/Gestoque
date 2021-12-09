@@ -7,6 +7,7 @@ package controller.Vendas;
 
 import controller.Helper.Vendas.VendasControllerHelper;
 import dao.modelDao.VendaDao;
+import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -28,7 +29,7 @@ public class VendasController {
         this.helper = new VendasControllerHelper(view);
     }
 
-    public static void setarTabela() throws ParseException {
+    public static void setarTabela(){
         LocalDateTime data = LocalDateTime.now();
         VendasController.helper.setarAnoEMes(data);        
         
@@ -41,7 +42,7 @@ public class VendasController {
             VendasController.helper.imprime("Nenhuma venda encontrada no mês corrente");
     }
 
-    public void buscarMesEANo() throws ParseException {
+    public void buscarMesEANo() throws ParseException, IOException {
        LocalDateTime data = VendasController.helper.obterMesEANoSelecionado();
        
        List<Venda> vendas = VendaDao.buscarPorMes(data); 
@@ -55,7 +56,7 @@ public class VendasController {
            
     }
 
-    public void buscarData() throws ParseException   {
+    public void buscarData() throws ParseException, IOException   {
         LocalDate data = VendasController.helper.obterData();
         List<Venda> vendas = vendaDao.buscarPorData(data); 
         

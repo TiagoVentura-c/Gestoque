@@ -6,6 +6,9 @@
 package view.Despesas;
 
 import controller.Despesa.NovaDespesaControler;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
@@ -20,7 +23,7 @@ public class NovaDespesa extends javax.swing.JFrame {
      */
  
     private final NovaDespesaControler controller;
-    public NovaDespesa() {
+    public NovaDespesa() throws IOException {
         initComponents();
         controller = new NovaDespesaControler(this);
         controller.setarTela();
@@ -214,7 +217,11 @@ public class NovaDespesa extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        controller.salvar();
+        try {
+            controller.salvar();
+        } catch (IOException ex) {
+            Logger.getLogger(NovaDespesa.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     /**
@@ -248,7 +255,11 @@ public class NovaDespesa extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NovaDespesa().setVisible(true);
+                try {
+                    new NovaDespesa().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(NovaDespesa.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

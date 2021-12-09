@@ -8,6 +8,7 @@ package controller.Helper.Despesa;
 import controller.Utils.Util;
 import java.awt.Component;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -83,5 +84,29 @@ public class TotalDespesaControllerHelper {
         Component rootPane = null;
         JOptionPane.showMessageDialog(rootPane, msm);
     } 
+
+    public List<List<String>> matriz(){
+        int columnCount = view.getjTableTabela().getColumnCount();
+        int rowCount = view.getjTableTabela().getRowCount();
+        
+        List<String> Colunas = new ArrayList<>();
+        List<List<String>> compras = new ArrayList<>();
+        
+        for (int i  = 0; i < columnCount; i++) {
+            Colunas.add(view.getjTableTabela().getColumnName(i));
+        }
+        
+        compras.add(Colunas);
+  
+        for (int i = 0; i < rowCount; i++) {
+            List<String> c = new ArrayList<>();
+            for (int j = 0; j < columnCount; j++) {
+                String valueAt = view.getjTableTabela().getValueAt(i, j).toString();
+                c.add(valueAt);
+            }
+            compras.add(c);
+        }
+         return compras;
+    }
     
 }

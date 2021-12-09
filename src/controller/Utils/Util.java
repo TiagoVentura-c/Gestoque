@@ -60,4 +60,10 @@ public class Util {
     public static LocalDate formatarStringEmDataBarra(String d){
         return LocalDate.parse(d, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
+    
+    
+    
+    public static String obterDataEmStringImprimir(LocalDateTime d){
+        return d.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH mm ss"));
+    }
 }

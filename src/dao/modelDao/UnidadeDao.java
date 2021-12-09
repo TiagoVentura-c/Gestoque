@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 
 import model.Unidade;
 import dao.Conexao;
+import java.io.IOException;
 
 /**
  *
@@ -22,7 +23,7 @@ import dao.Conexao;
  */
 public class UnidadeDao{
 
-    public void inserir(Unidade unidade){
+    public void inserir(Unidade unidade) throws IOException{
         try {
             Conexao conexao = new Conexao();
             String sql = " insert into unidades(id, unidade) values (null,?)";
@@ -36,7 +37,7 @@ public class UnidadeDao{
         }
     }
 
-    public void remover(int id){
+    public void remover(int id) throws IOException{
         try {
             Conexao conexao = new Conexao();
             String sql = " DELETE from unidades where id = ?";
@@ -52,7 +53,7 @@ public class UnidadeDao{
         
     }
     
-    public Unidade buscar(int id){
+    public Unidade buscar(int id) throws IOException{
         Unidade unidadeBuscada = new Unidade();
         try {
             Conexao conexao = new Conexao();
@@ -73,7 +74,7 @@ public class UnidadeDao{
         return unidadeBuscada;
     }
     
-    public void actualizar(Unidade unidade){
+    public void actualizar(Unidade unidade) throws IOException{
         try {
             Conexao conexao = new Conexao();
             String sql = "UPDATE unidades SET unidade= ? WHERE id = ?";
@@ -91,7 +92,7 @@ public class UnidadeDao{
         
     }
     
-    public List<Unidade> listar(){
+    public List<Unidade> listar() throws IOException{
         List<Unidade> unidades = new ArrayList<>();
         try {
             Conexao conexao = new Conexao();

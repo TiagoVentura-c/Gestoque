@@ -1,8 +1,13 @@
 package dao;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -11,19 +16,30 @@ import java.sql.SQLException;
 public class Conexao {
     
     private final String driver = "org.sqlite.JDBC";
-    private final String url = "jdbc:sqlite:db//base.db";
+    private final String path ="C:\\Users\\"+System.getProperty("user.name")+"\\.gestoque\\";
+    private final String databaseName="\\base.db";
+    private final String url = "jdbc:sqlite:"+path+databaseName;
     
-    public Connection conn = null;
+    public static Connection conn = null;
+    public static boolean cria = true;
     
     public Conexao(){
         try {
-            Class.forName(driver);
-            conn = DriverManager.getConnection(url);
-            System.out.println("Connection Success");
-        } catch (ClassNotFoundException | SQLException e) {
-            System.err.println("Connection Error : " + e);
+            try {
+                Class.forName(driver);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            conn = DriverManager.getConnection(url); 
+            cria = false;
+          }
+        catch(SQLException e) {
+            
+            }
         }
-    }
+    
+    
+    
     
     public void close() {
         
@@ -36,7 +52,6 @@ public class Conexao {
         } catch (SQLException e) {
             System.err.println("Close Error : " + e);
         }
-        
     }
-    
-}
+    }
+   

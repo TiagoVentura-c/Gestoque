@@ -9,6 +9,8 @@ import controller.Helper.Itens.EditarItemControllerHelper;
 import dao.modelDao.CategoriaDao;
 import dao.modelDao.ItemDao;
 import dao.modelDao.UnidadeDao;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import model.Categoria;
 import model.Item;
@@ -37,7 +39,7 @@ public class EditarItemController {
         this.helper = new EditarItemControllerHelper(view);
     }
  
-    public  void salvarItem() {
+    public  void salvarItem() throws IOException, ClassNotFoundException, SQLException {
         Item i = this.helper.getItem();
         i.setId(this.id);
         //TODO verificaçoes
@@ -50,7 +52,7 @@ public class EditarItemController {
         ItensCotroller.preencherTabelaBackground();
     }
 
-    public void preencherTela(Item i) {
+    public void preencherTela(Item i) throws IOException {
         List<Unidade> unidades = unidadeDao.listar();
         List<Categoria> categorias = categoriaDao.listar();
         this.id=i.getId();

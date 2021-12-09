@@ -2,7 +2,6 @@ package controller.Helper.Itens;
 
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import model.Categoria;
 
 import model.Item;
 import view.TelaPrincipal;
@@ -24,15 +23,21 @@ public class ItensControllerHelper {
     this.items = items;
      DefaultTableModel tableModel =   (DefaultTableModel) view.getjTable_Itens_TabelaItens().getModel();
      tableModel.setNumRows(0);
-        for (Item item : items) {
-            tableModel.addRow(new Object[]{
-                item.getDescricao(),
-                item.getCodigo(),
-                item.getCategoria().getCategoria(),
-                item.getPreco(),
-                item.getUnidade().getUnidade()
-             } );
-        }        
+     items.forEach(item -> {
+         tableModel.addRow(new Object[]{
+             item.getDescricao(),
+             item.getCodigo(),
+             item.getCategoria().getCategoria(),
+             item.getPreco(),
+             item.getUnidade().getUnidade()
+         } );
+        });        
+    }
+    public void preencherTabelaVazia(){
+    
+     DefaultTableModel tableModel =   (DefaultTableModel) view.getjTable_Itens_TabelaItens().getModel();
+     tableModel.setNumRows(0);
+               
     }
 
     public String[] buscar() {

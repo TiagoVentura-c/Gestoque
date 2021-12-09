@@ -20,6 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Venda;
 import dao.Conexao;
+import java.io.IOException;
 
 /**
  *
@@ -48,7 +49,7 @@ public class VendaDao {
                 
     }
     
-    public static void inserir(Venda venda) throws ParseException{
+    public static void inserir(Venda venda){
         try {      
             Conexao conexao = new Conexao();
             String sql = " insert into vendas(id, nome_cliente, valor_total, data_compra) values (null,?, ?, ?)";
@@ -65,7 +66,7 @@ public class VendaDao {
         
     }
 
-    public static int obterUltimoId() {
+    public static int obterUltimoId(){
         int id=0;
          try {
             Conexao conexao = new Conexao();
@@ -86,7 +87,7 @@ public class VendaDao {
     
     
 
-    public void remover(int id){
+    public void remover(int id) throws IOException{
         try {
             Conexao conexao = new Conexao();
             String sql = " DELETE from vendas where id = ?";
@@ -101,7 +102,7 @@ public class VendaDao {
         }
     }
     
-    public Venda buscar(int id) throws ParseException{
+    public Venda buscar(int id) throws ParseException, IOException{
         Venda vendaBuscada = new Venda();
         try {
             Conexao conexao = new Conexao();
@@ -142,7 +143,7 @@ public class VendaDao {
         }
     }*/
     
-    public static List<Venda> listar() throws ParseException{
+    public static List<Venda> listar() throws ParseException, IOException{
         List<Venda> vendas = new ArrayList<>();
         
         try {
@@ -171,7 +172,7 @@ public class VendaDao {
         return vendas;
     }
 
-    public static List<Venda> buscarPorMes(LocalDateTime data) throws ParseException {
+    public static List<Venda> buscarPorMes(LocalDateTime data){
         List<Venda> vendas = new ArrayList<>();
         String mesActual = Util.obterMesEAnoEmString(data);
         data = data.plusMonths(1);        
@@ -191,7 +192,11 @@ public class VendaDao {
                 vendaBuscada.setId(rs.getInt("id"));
                 vendaBuscada.setNomeCliente(rs.getString("nome_cliente"));
                 vendaBuscada.setValorTotal(rs.getFloat("valor_total"));
-                vendaBuscada.setDataString(rs.getString("data_compra"));
+                try {
+                    vendaBuscada.setDataString(rs.getString("data_compra"));
+                } catch (ParseException ex) {
+                    Logger.getLogger(VendaDao.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 
                 vendas.add(vendaBuscada);
                 
@@ -210,7 +215,7 @@ public class VendaDao {
         return new SimpleDateFormat("yyyy-MM").format(data);
     }
 
-    public List<Venda> buscarPorData(LocalDate data) throws ParseException {
+    public List<Venda> buscarPorData(LocalDate data) throws ParseException, IOException {
         List<Venda> vendas = new ArrayList<>();
         
         String dataS = Util.obterAnoMesDiaEmString(data);

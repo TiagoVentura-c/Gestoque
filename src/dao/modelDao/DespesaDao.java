@@ -19,6 +19,7 @@ import model.Despesas.Despesa;
 import model.Despesas.DetalheGasto;
 import model.Despesas.ItemDespesa;
 import dao.Conexao;
+import java.io.IOException;
 
 /**
  *
@@ -26,7 +27,7 @@ import dao.Conexao;
  */
 public class DespesaDao {
     
-    public void inserirDespesa(Despesa despesa){
+    public void inserirDespesa(Despesa despesa) throws IOException{
         try {
             Conexao conexao = new Conexao();
             String sql = " insert into despesas(id, id_item, data, valor_gasto, id_categoria) values (null, ?, ?, ?, ?)";
@@ -43,7 +44,7 @@ public class DespesaDao {
         }
     }
     
-    public void inserirItem(ItemDespesa itemDespesa){
+    public void inserirItem(ItemDespesa itemDespesa) throws IOException{
         try {
             Conexao conexao = new Conexao();
             String sql = "insert into items_despesas(id, descricao) values (null, ?)";
@@ -57,7 +58,7 @@ public class DespesaDao {
         }
     }
     
-    public void inserirCategoria(CategoriaDespesa cd){
+    public void inserirCategoria(CategoriaDespesa cd) throws IOException{
         try {
             Conexao conexao = new Conexao();
             String sql = " insert into categorias_despesas(id, categoria) values (null, ?)";
@@ -71,7 +72,7 @@ public class DespesaDao {
         }
     }
     
-    public Despesa buscarDespesa(int id){
+    public Despesa buscarDespesa(int id) throws IOException{
         Despesa despesa = new Despesa();
         ItemDespesa itemDespesa = new ItemDespesa();
         CategoriaDespesa cd = new CategoriaDespesa();
@@ -101,7 +102,7 @@ public class DespesaDao {
         return despesa;
     }
 
-    private ItemDespesa buscarItem(int id) {
+    private ItemDespesa buscarItem(int id) throws IOException {
         ItemDespesa itemDespesa = new ItemDespesa();
         
         try {
@@ -122,7 +123,7 @@ public class DespesaDao {
         
     }
 
-    private CategoriaDespesa buscarCategoria(int id) {
+    private CategoriaDespesa buscarCategoria(int id) throws IOException {
         CategoriaDespesa cd = new CategoriaDespesa();
         
         try {
@@ -143,7 +144,7 @@ public class DespesaDao {
         return cd;
     }
     
-    public List<Despesa> listarDespesa(){
+    public List<Despesa> listarDespesa() throws IOException{
         List<Despesa> despesas = new ArrayList<>();
          
         try {
@@ -177,7 +178,7 @@ public class DespesaDao {
     }
     
     
-        public List<ItemDespesa> listarItem() {
+        public List<ItemDespesa> listarItem() throws IOException {
         List<ItemDespesa> itemDespesas = new ArrayList<>();
         
         
@@ -205,7 +206,7 @@ public class DespesaDao {
         
     }
 
-    public List<CategoriaDespesa> listarCategoria() {
+    public List<CategoriaDespesa> listarCategoria() throws IOException {
         List<CategoriaDespesa> categoriaDespesas = new ArrayList<>();
         
         
@@ -232,7 +233,7 @@ public class DespesaDao {
         return categoriaDespesas;
     }
 
-    public List<Despesa> buscarDespesasPorData(LocalDate data) {
+    public List<Despesa> buscarDespesasPorData(LocalDate data) throws IOException {
         List<Despesa> despesas = new ArrayList<>();
         String mesActual = Util.obterMesEAnoEmString(data);
         data = data.plusMonths(1);        
@@ -271,7 +272,7 @@ public class DespesaDao {
         return despesas;
     }
 
-    public List<DetalheGasto> listarGastosMensais(LocalDate data){
+    public List<DetalheGasto> listarGastosMensais(LocalDate data) throws IOException{
         List<DetalheGasto> detalheGastos = new ArrayList<>();
         List<ItemDespesa> itemDespesas = listarItem();
         

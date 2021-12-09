@@ -21,6 +21,7 @@ import model.Item;
 import model.Venda;
 import model.VendaItem;
 import dao.Conexao;
+import java.io.IOException;
 
 /**
  *
@@ -42,7 +43,7 @@ public class CompraDao {
     static VendaDao vendaDao =  new VendaDao();
     static ItemDao itemDao = new ItemDao();
     
-    public static List<Compra> buscarCompras(int id_venda) throws ParseException {
+    public static List<Compra> buscarCompras(int id_venda) throws ParseException, IOException {
         List<Compra> compras = new ArrayList<>();
         
         Venda v = new Venda();
@@ -94,7 +95,7 @@ public class CompraDao {
         }
     }
 
-    public void remover(int id){
+    public void remover(int id) throws IOException{
         try {
             Conexao conexao = new Conexao();
             String sql = " DELETE from compras where id = ?";
@@ -110,7 +111,7 @@ public class CompraDao {
         
     }
     
-    public Compra buscar(int id) throws ParseException{
+    public Compra buscar(int id) throws ParseException, IOException{
         Compra compraBuscada = new Compra();
         Venda v = new Venda();
         Item i = new Item();
@@ -194,7 +195,7 @@ public class CompraDao {
            
     }
 
-    public VendaItem buscarComprasPorItem(LocalDateTime data, Item i) {
+    public VendaItem buscarComprasPorItem(LocalDateTime data, Item i) throws IOException {
         VendaItem vendaItem = new VendaItem();
         vendaItem.setData(data);        
         vendaItem.setDescricao(i.getDescricao()); 
@@ -234,7 +235,11 @@ public class CompraDao {
         List<VendaItem> vendaItems = new ArrayList<>();
        
         is.forEach(i -> {
-             vendaItems.add(buscarComprasPorItem(data, i)); 
+            try { 
+                vendaItems.add(buscarComprasPorItem(data, i));
+            } catch (IOException ex) {
+                Logger.getLogger(CompraDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
         
         return vendaItems;

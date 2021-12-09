@@ -6,6 +6,10 @@
 package view.Itens;
 
 import controller.Itens.NovoItemController;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
@@ -19,7 +23,7 @@ public class NovoItem extends javax.swing.JFrame {
      * Creates new form NovoItem
      */
     public static NovoItemController controller;
-    public NovoItem() {
+    public NovoItem() throws IOException {
         initComponents();
         controller = new NovoItemController(this);
         controller.preencherTela();
@@ -268,8 +272,16 @@ public class NovoItem extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        // TODO add your handling code here:
-        this.controller.salvarItem();
+        try {
+            // TODO add your handling code here:
+            this.controller.salvarItem();
+        } catch (IOException ex) {
+            Logger.getLogger(NovoItem.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(NovoItem.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(NovoItem.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     /**
@@ -302,7 +314,11 @@ public class NovoItem extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NovoItem().setVisible(true);
+                try {
+                    new NovoItem().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(NovoItem.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

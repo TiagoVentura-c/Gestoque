@@ -5,7 +5,11 @@
  */
 package view.Vendas;
 
+import com.itextpdf.text.DocumentException;
 import controller.Vendas.DetalheVendaController;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
@@ -142,7 +146,7 @@ public class DetalheVenda extends javax.swing.JFrame {
             }
         });
 
-        jButtonImprimir.setText("Imprimir");
+        jButtonImprimir.setText("Salvar Pdf");
         jButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonImprimirActionPerformed(evt);
@@ -154,7 +158,7 @@ public class DetalheVenda extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(390, Short.MAX_VALUE)
+                .addContainerGap(380, Short.MAX_VALUE)
                 .addComponent(jButtonCancelar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonImprimir)
@@ -181,7 +185,14 @@ public class DetalheVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            this.controller.imprimir();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(DetalheVenda.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DocumentException ex) {
+            Logger.getLogger(DetalheVenda.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 

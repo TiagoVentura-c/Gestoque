@@ -11,6 +11,9 @@ import controller.Estoque.NovoItemEstoqueController;
 import controller.Itens.ItensCotroller;
 import controller.Vendas.DetalheVendaController;
 import controller.Vendas.VendasController;
+import dao.GerarTabela;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,13 +49,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private final VendasController vendasController;
     private final DespesasController despesasController;
     
-    public TelaPrincipal() {
+    public TelaPrincipal() throws IOException, ClassNotFoundException, SQLException {
         initComponents();
         visisbleFalse();
         jPanelItem.setVisible(true);
+        GerarTabela.main();
         
         itensCotroller = new ItensCotroller(this);
-        itensCotroller.preencherTabela();
         
         estoqueController = new EstoqueController(this);
         
@@ -1138,11 +1141,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         visisbleFalse();
         jPanelVenda.setVisible(true);
-        try {
-            this.vendasController.setarTabela();
-        } catch (ParseException ex) {
-            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.vendasController.setarTabela();
     }//GEN-LAST:event_jButtonVendasActionPerformed
 
     private void jButtonDesoesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDesoesasActionPerformed
@@ -1150,12 +1149,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
         visisbleFalse();
         jPanelDespesa.setVisible(true);
         
-        this.despesasController.setarTela();
+        try {
+            this.despesasController.setarTela();
+        } catch (IOException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonDesoesasActionPerformed
 
     private void jButtonItensActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonItensActionPerformed
         visisbleFalse();
         jPanelItem.setVisible(true);
+        try {
+            itensCotroller.preencherTabela();
+        } catch (IOException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
          
     }//GEN-LAST:event_jButtonItensActionPerformed
 
@@ -1172,7 +1184,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jButton_Itens_NovoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Itens_NovoItemActionPerformed
         // TODO add your handling code here:
-        NovoItem n = new NovoItem();
+        NovoItem n= null;;
+        try {
+            n = new NovoItem();
+        } catch (IOException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
         n.setVisible(true);
         //dispose();
     }//GEN-LAST:event_jButton_Itens_NovoItemActionPerformed
@@ -1188,7 +1205,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jButton_Estoque_novoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Estoque_novoItemActionPerformed
         // TODO add your handling code here:
         NovoItemEstoque n = new NovoItemEstoque();
-        NovoItemEstoqueController.setarTela();
+        try {
+            NovoItemEstoqueController.setarTela();
+        } catch (IOException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
         n.setVisible(true);
     }//GEN-LAST:event_jButton_Estoque_novoItemActionPerformed
 
@@ -1202,7 +1227,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jButton_Vendas_NovaVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Vendas_NovaVendaActionPerformed
         // TODO add your handling code here:
-        NovoVenda nv = new NovoVenda();
+        NovoVenda nv= null;;
+        try {
+            nv = new NovoVenda();
+        } catch (IOException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
         nv.setVisible(true);
     }//GEN-LAST:event_jButton_Vendas_NovaVendaActionPerformed
 
@@ -1216,13 +1246,24 @@ public class TelaPrincipal extends javax.swing.JFrame {
             DetalheVendaController.setarTela(v);
         } catch (ParseException ex) {
             Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
         dv.setVisible(true);
     }//GEN-LAST:event_jButton_Vendas_DetalheActionPerformed
 
     private void jButton_Vendas_totalItensVendidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Vendas_totalItensVendidosActionPerformed
         // TODO add your handling code here:
-        TotalVendasPorItem item = new TotalVendasPorItem();
+        TotalVendasPorItem item= null;;
+        try {
+            item = new TotalVendasPorItem();
+        } catch (IOException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
         item.setVisible(true);
     }//GEN-LAST:event_jButton_Vendas_totalItensVendidosActionPerformed
 
@@ -1232,12 +1273,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
             this.vendasController.buscarMesEANo();
         } catch (ParseException ex) {
             Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton_Venda_buscar_mesActionPerformed
 
     private void jButton_Itens_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Itens_BuscarActionPerformed
-        // TODO add your handling code here:
-        this.itensCotroller.buscar();
+        try {
+            // TODO add your handling code here:
+            this.itensCotroller.buscar();
+        } catch (IOException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton_Itens_BuscarActionPerformed
 
     private void jButton_Itens_EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Itens_EditarActionPerformed
@@ -1246,15 +1297,23 @@ public class TelaPrincipal extends javax.swing.JFrame {
         i = this.itensCotroller.itemSelecionado();
 
         EditarItem editarItem = new EditarItem();
-        editarItem.controller.preencherTela(i);
+        try {
+            editarItem.controller.preencherTela(i);
+        } catch (IOException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         editarItem.setVisible(true);
         
     }//GEN-LAST:event_jButton_Itens_EditarActionPerformed
 
     private void jButton_Estoque_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Estoque_buscarActionPerformed
-        // TODO add your handling code here:
-        this.estoqueController.buscar();
+        try {
+            // TODO add your handling code here:
+            this.estoqueController.buscar();
+        } catch (IOException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton_Estoque_buscarActionPerformed
 
     private void jButton_Estoque_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Estoque_editarActionPerformed
@@ -1271,7 +1330,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         Estoque e = this.estoqueController.itemSelecionado();
         if(e == null) return;
-        this.estoqueController.apagar(e);
+        try {
+            this.estoqueController.apagar(e);
+        } catch (IOException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton_Estoque_apagarActionPerformed
 
     private void jButton_Vendas_buscarDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Vendas_buscarDataActionPerformed
@@ -1280,6 +1343,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
             // TODO add your handling code here:
             this.vendasController.buscarData();
         } catch (ParseException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
             Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -1290,8 +1355,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField_Vendas_totalActionPerformed
 
     private void jButton_Despesas_buscar_mesAnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Despesas_buscar_mesAnoActionPerformed
-        // TODO add your handling code here:
-        this.despesasController.buscar();
+        try {
+            // TODO add your handling code here:
+            this.despesasController.buscar();
+        } catch (IOException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton_Despesas_buscar_mesAnoActionPerformed
 
     private void jPanel8MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseDragged
@@ -1304,7 +1373,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jButton_Despesas_totalDespesasPorItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Despesas_totalDespesasPorItemActionPerformed
         // TODO add your handling code here:
-        TotalDespesasPorItem tdpi = new TotalDespesasPorItem();
+        TotalDespesasPorItem tdpi= null;;
+        try {
+            tdpi = new TotalDespesasPorItem();
+        } catch (IOException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
         tdpi.setVisible(true);
     }//GEN-LAST:event_jButton_Despesas_totalDespesasPorItemActionPerformed
 
@@ -1314,7 +1388,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jButton_Despesas_novaDespesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Despesas_novaDespesaActionPerformed
         // TODO add your handling code here:
-        NovaDespesa nv = new NovaDespesa();
+        NovaDespesa nv = null;
+        try {
+            nv = new NovaDespesa();
+        } catch (IOException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
         nv.setVisible(true);
     }//GEN-LAST:event_jButton_Despesas_novaDespesaActionPerformed
 
@@ -1348,7 +1427,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaPrincipal().setVisible(true);
+                try {
+                    new TelaPrincipal().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
         

@@ -5,7 +5,12 @@
  */
 package view.Despesas;
 
+import com.itextpdf.text.DocumentException;
 import controller.Despesa.TotalDespesasController;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -22,7 +27,7 @@ public class TotalDespesasPorItem extends javax.swing.JFrame {
      */
     
     private final TotalDespesasController controller;
-    public TotalDespesasPorItem() {
+    public TotalDespesasPorItem() throws IOException {
         initComponents();
         this.controller = new TotalDespesasController(this);
         
@@ -159,7 +164,7 @@ public class TotalDespesasPorItem extends javax.swing.JFrame {
             }
         });
 
-        jButtonFinalizar.setText("Imprimir");
+        jButtonFinalizar.setText("Salvar Pdf");
         jButtonFinalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonFinalizarActionPerformed(evt);
@@ -171,7 +176,7 @@ public class TotalDespesasPorItem extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(515, Short.MAX_VALUE)
+                .addContainerGap(505, Short.MAX_VALUE)
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonFinalizar)
@@ -196,12 +201,23 @@ public class TotalDespesasPorItem extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButtonFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFinalizarActionPerformed
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            this.controller.salvarPdf();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(TotalDespesasPorItem.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DocumentException ex) {
+            Logger.getLogger(TotalDespesasPorItem.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }//GEN-LAST:event_jButtonFinalizarActionPerformed
 
     private void jButtonBuscarMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarMesActionPerformed
-        this.controller.buscar();
+        try {
+            this.controller.buscar();
+        } catch (IOException ex) {
+            Logger.getLogger(TotalDespesasPorItem.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonBuscarMesActionPerformed
 
     /**
@@ -249,7 +265,11 @@ public class TotalDespesasPorItem extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TotalDespesasPorItem().setVisible(true);
+                try {
+                    new TotalDespesasPorItem().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(TotalDespesasPorItem.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

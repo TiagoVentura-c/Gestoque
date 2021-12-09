@@ -8,6 +8,8 @@ package controller.Estoque;
 import controller.Helper.Estoque.NovoItemEstoqueControllerHelper;
 import dao.modelDao.EstoqueDao;
 import dao.modelDao.ItemDao;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import model.Estoque;
@@ -56,7 +58,7 @@ public class NovoItemEstoqueController {
         
     }
 
-    public static void setarTela() {
+    public static void setarTela() throws IOException, ClassNotFoundException, SQLException {
         List<Item> itens = ItemDao.listar();
         List<Estoque> es = EstoqueDao.listar();
         
@@ -71,7 +73,7 @@ public class NovoItemEstoqueController {
         NovoItemEstoqueController.helper.setarTela(itens);
     }
 
-    public void salvar() {
+    public void salvar() throws IOException {
     if(actualiza){
         Estoque e = new Estoque();
         e.setId(id);

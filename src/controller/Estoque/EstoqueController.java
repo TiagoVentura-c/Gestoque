@@ -10,6 +10,7 @@ import java.util.List;
 import model.Estoque;
 import dao.modelDao.EstoqueDao;
 import dao.modelDao.ItemDao;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import model.Item;
@@ -29,12 +30,12 @@ public class EstoqueController {
         this.helper = new EstoqueControllerHelper(view);
     }
 
-    public static void setarTabela() {
+    public static void setarTabela() throws IOException {
         List<Estoque> estoques = EstoqueDao.listar();
         EstoqueControllerHelper.setarTabela(estoques);
     }
 
-    public void buscar() {
+    public void buscar() throws IOException {
          // 0-> descricao
         // 1-> codigo
         String []s = this.helper.buscar();
@@ -60,7 +61,7 @@ public class EstoqueController {
         return this.helper.itemSelecionado();
     }
 
-    public void apagar(Estoque e) {
+    public void apagar(Estoque e) throws IOException {
         //todo confirmar apgar
         
         estoqueDao.remover(e.getId());

@@ -8,9 +8,8 @@ package controller.Helper.Vendas;
 import controller.Utils.Util;
 import java.awt.Component;
 import java.time.LocalDateTime;
-import java.time.Month;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -36,7 +35,7 @@ public class TotalVendaItemControllerHelper {
     public void setarTela(List<Item> items, LocalDateTime data) {
         DefaultComboBoxModel comboBoxModelMeses = (DefaultComboBoxModel) view.getjComboBoxMes().getModel();
         DefaultComboBoxModel comboBoxModelAnos = (DefaultComboBoxModel) view.getjComboBoxAno().getModel();
-        DefaultComboBoxModel comboBoxModelItens = (DefaultComboBoxModel) view.getjComboBoxItem().getModel();
+ 
         
         comboBoxModelMeses.removeAllElements();
         comboBoxModelAnos.removeAllElements();
@@ -48,10 +47,7 @@ public class TotalVendaItemControllerHelper {
         anos.forEach(ano -> {
             comboBoxModelAnos.addElement(ano);
         });
-        
-        items.forEach(i -> {
-            comboBoxModelItens.addElement(i.getDescricao());
-        });
+         
         
         view.getjComboBoxMes().setSelectedIndex(data.getMonthValue()-1);
         view.getjComboBoxAno().setSelectedItem(data.getYear());
@@ -67,11 +63,7 @@ public class TotalVendaItemControllerHelper {
         
         return d;
     }
-
-    public int itemSelecionado() {
-        return view.getjComboBoxItem().getSelectedIndex();
-    }
-   
+ 
 
     public void setarTabela(VendaItem vendaItems, LocalDateTime data) {
      
@@ -115,7 +107,33 @@ public class TotalVendaItemControllerHelper {
             
        view.getjLabelValorTotalDe().setText("Valor total de "+ Util.obterMesEAnoEmString(data));
        view.getjTextFieldValorTotal().setText(valorTotal+" Kz");
-       
-       
+           
     }
+    
+    public List<List<String>> matriz(){
+        int columnCount = view.getjTableTabela().getColumnCount();
+        int rowCount = view.getjTableTabela().getRowCount();
+        
+        List<String> Colunas = new ArrayList<>();
+        List<List<String>> compras = new ArrayList<>();
+        
+        for (int i  = 0; i < columnCount; i++) {
+            Colunas.add(view.getjTableTabela().getColumnName(i));
+        }
+        
+        compras.add(Colunas);
+  
+        for (int i = 0; i < rowCount; i++) {
+            List<String> c = new ArrayList<>();
+            for (int j = 0; j < columnCount; j++) {
+                String valueAt = view.getjTableTabela().getValueAt(i, j).toString();
+                c.add(valueAt);
+            }
+            compras.add(c);
+        }
+        
+        return compras;
+    }
+    
+    
 }

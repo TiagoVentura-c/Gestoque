@@ -7,6 +7,7 @@ package controller.Despesa;
 
 import dao.modelDao.DespesaDao;
 import java.awt.Component;
+import java.io.IOException;
 import javax.swing.JOptionPane;
 import model.Despesas.ItemDespesa;
 import view.Despesas.NovoItem;
@@ -24,7 +25,7 @@ public class NovoItemController {
         despesaDao = new DespesaDao();
     }
 
-    public void salvar() {
+    public void salvar() throws IOException {
         ItemDespesa id = new ItemDespesa();
         id.setDescricao(view.getjTextFieldCategoria().getText());
         despesaDao.inserirItem(id);

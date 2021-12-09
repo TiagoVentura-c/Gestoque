@@ -1,16 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller.Itens;
 
 import controller.Helper.Itens.ItensControllerHelper;
 import dao.modelDao.ItemDao;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import model.Estoque;
 
 import model.Item;
 import view.TelaPrincipal;
@@ -26,18 +22,24 @@ public class ItensCotroller {
     private static TelaPrincipal view;
     static DefaultTableModel tableModel;
     
-    public ItensCotroller(TelaPrincipal view) {
+    public ItensCotroller(TelaPrincipal view) throws IOException, ClassNotFoundException, SQLException {
         this.view = view;
         this.helper = new ItensControllerHelper(view);
+        /*file=new dao.File();
+        file.criarBase();*/
+        preencherTabela();
     }
     
-    public void preencherTabela(){
+    public void preencherTabela() throws IOException, IOException, ClassNotFoundException, SQLException{
         ItemDao itemDao = new ItemDao();
-        List<Item> items = itemDao.listar();
-        helper.preencherTabela(items);
+        List<Item> items = ItemDao.listar();
+        if(!items.isEmpty())
+            helper.preencherTabela(items);
+        else
+            helper.preencherTabelaVazia();
     }
     
-    public static void preencherTabelaBackground(){
+    public static void preencherTabelaBackground() throws IOException, ClassNotFoundException, SQLException{
         ItemDao itemDao = new ItemDao();
         List<Item> items = itemDao.listar();
         
@@ -52,11 +54,12 @@ public class ItensCotroller {
                 item.getUnidade().getUnidade()
              } );
         }
+       
         
     }
 
    
-    public void buscar() {
+    public void buscar() throws IOException, ClassNotFoundException, SQLException {
         // 0-> descricao
         // 1-> codigo
         String []s = this.helper.buscar();

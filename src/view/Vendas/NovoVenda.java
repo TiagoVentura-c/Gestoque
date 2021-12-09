@@ -6,6 +6,7 @@
 package view.Vendas;
 
 import controller.Vendas.NovaVendaController;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,7 +23,7 @@ public class NovoVenda extends javax.swing.JFrame {
      * Creates new form NovoItem
      */
     private final NovaVendaController controller;
-    public NovoVenda() {
+    public NovoVenda() throws IOException {
         initComponents();
         controller= new NovaVendaController(this);
     }
@@ -201,17 +202,14 @@ public class NovoVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButtonFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFinalizarActionPerformed
-        try {
-            // TODO add your handling code here:
-            this.controller.finalizar();
-        } catch (ParseException ex) {
-            Logger.getLogger(NovoVenda.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        // TODO add your handling code here:
+        this.controller.finalizar();
         dispose();
     }//GEN-LAST:event_jButtonFinalizarActionPerformed
 
     private void jButtonSelecionarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelecionarItemActionPerformed
-       SelecionarItem item = new SelecionarItem();
+       SelecionarItem item = null;
+       item = new SelecionarItem();
        item.setVisible(true);
     }//GEN-LAST:event_jButtonSelecionarItemActionPerformed
 
@@ -253,7 +251,11 @@ public class NovoVenda extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NovoVenda().setVisible(true);
+                try {
+                    new NovoVenda().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(NovoVenda.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

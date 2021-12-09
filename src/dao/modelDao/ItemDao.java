@@ -17,43 +17,22 @@ import model.Categoria;
 import model.Item;
 import model.Unidade;
 import dao.Conexao;
+import java.io.IOException;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author tiago
  */
 public class ItemDao {
-    
-    public static void main(String[] args) {
-        
-        Item item = new Item();
-        Categoria c = new Categoria();
-        Unidade u = new Unidade();
-        c.setId(1);
-        u.setId(1);
-        item.setId(19);
-        
-        item.setCategoria(c);
-        item.setUnidade(u);
-        
-        item.setCodigo("AL032125");
-        item.setPreco(8300);
-        item.setDescricao("Ketchupxx");
-        
-        
-        //inserir(item);
-        
-        /*
-       // List<Item> items = buscar("codigo","A");
-        
-       List<Item> its = ItemDao.listar();
-       
-       its.forEach(i -> System.out.println(i.getId() + " "+ i.getDescricao()));
-        */
+
+    public ItemDao() {
         
     }
+   
     
-    public static void inserir(Item item){
+    
+    public static void inserir(Item item) throws IOException{
         try {
             Conexao conexao = new Conexao();
             String sql =
@@ -75,7 +54,7 @@ public class ItemDao {
         }
     }
 
-    public static void remover(int id){
+    public static void remover(int id) throws IOException{
         try {
             Conexao conexao = new Conexao();
             String sql = " DELETE from items where id = ?";
@@ -91,7 +70,7 @@ public class ItemDao {
         
     }
     
-    public static List<Item> buscar(String nomeColuna, String codigo){
+    public static List<Item> buscar(String nomeColuna, String codigo) throws IOException{
         List<Item> items = new ArrayList<>();
         Unidade unidade = new Unidade();
         Categoria categoria = new Categoria();
@@ -135,7 +114,7 @@ public class ItemDao {
         return items;
     }
     
-    public static void actualizar(Item item){
+    public static void actualizar(Item item) throws IOException{
         try {
             Conexao conexao = new Conexao();
             String sql = "UPDATE items SET "
@@ -154,7 +133,8 @@ public class ItemDao {
             conexao.close();
             
         } catch (SQLException ex) {
-            Logger.getLogger(UnidadeDao.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex);
+            return;
         }
         
     }
@@ -182,8 +162,16 @@ public class ItemDao {
                 item.setPreco(rs.getFloat("preco"));
                 item.setDescricao(rs.getString("descricao"));
 
-                unidade = unidadeDao.buscar(rs.getInt("id_unidade"));
-                categoria = CategoriaDao.buscar(rs.getInt("id_categoria"));
+                try {
+                    unidade = unidadeDao.buscar(rs.getInt("id_unidade"));
+                } catch (IOException ex) {
+                    Logger.getLogger(ItemDao.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    categoria = CategoriaDao.buscar(rs.getInt("id_categoria"));
+                } catch (IOException ex) {
+                    Logger.getLogger(ItemDao.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
                 item.setUnidade(unidade);
                 item.setCategoria(categoria);
@@ -194,13 +182,14 @@ public class ItemDao {
             conexao.close();
 
         } catch (SQLException ex) {
-            Logger.getLogger(UnidadeDao.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex);
+            return null;        
         }
 
         return items;
     }
 
-    public static Item buscarPorId(int id) {
+    public static Item buscarPorId(int id) throws IOException {
         Unidade unidade = new Unidade();
         Categoria categoria = new Categoria();
         Item item = new Item();

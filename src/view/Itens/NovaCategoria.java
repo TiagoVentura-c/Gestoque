@@ -6,6 +6,9 @@
 package view.Itens;
 
 import controller.Itens.NovaCategoriaController;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTextField;
 
 /**
@@ -99,9 +102,13 @@ public class NovaCategoria extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        // TODO add your handling code here:
-        //
-        this.controller.salvar();
+        try {
+            // TODO add your handling code here:
+            //
+            this.controller.salvar();
+        } catch (IOException ex) {
+            Logger.getLogger(NovaCategoria.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     /**

@@ -6,6 +6,9 @@
 package view.Estoque;
 
 import controller.Estoque.NovoItemEstoqueController;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import model.Estoque;
@@ -147,8 +150,12 @@ public class NovoItemEstoque extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        // TODO add your handling code here:
-        this.controller.salvar();
+        try {
+            // TODO add your handling code here:
+            this.controller.salvar();
+        } catch (IOException ex) {
+            Logger.getLogger(NovoItemEstoque.class.getName()).log(Level.SEVERE, null, ex);
+        }
         dispose();
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 

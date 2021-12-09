@@ -7,6 +7,7 @@ package controller.Despesa;
 
 import dao.modelDao.DespesaDao;
 import java.awt.Component;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.swing.ComboBoxModel;
@@ -28,7 +29,7 @@ public class NovaDespesaControler {
     private final List<ItemDespesa> itemsDespesas;
     private final List<CategoriaDespesa> categoriaDespesas;
 
-    public NovaDespesaControler(NovaDespesa view) {
+    public NovaDespesaControler(NovaDespesa view) throws IOException {
         this.view = view;
         despesaDao = new DespesaDao();
         
@@ -48,7 +49,7 @@ public class NovaDespesaControler {
         });    
     }
 
-    public void salvar() {
+    public void salvar() throws IOException {
         Despesa d = new Despesa();
         CategoriaDespesa c = categoriaDespesas.get(view.getjComboBoxCategoriaDespesa().getSelectedIndex());
         ItemDespesa i = itemsDespesas.get(view.getjComboBoxItemDespesa().getSelectedIndex());

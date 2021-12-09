@@ -5,13 +5,18 @@
  */
 package controller.Vendas;
 
+import com.itextpdf.text.DocumentException;
 import controller.Helper.Vendas.TotalVendaItemControllerHelper;
+import controller.Utils.Impressao.ImprimirValorItens;
+import controller.Utils.Util;
 import dao.modelDao.CompraDao;
 import dao.modelDao.ItemDao;
 import dao.modelDao.VendaDao;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import model.Item;
 import model.VendaItem;
@@ -28,16 +33,20 @@ public class TotalVendaItemController {
     private final ItemDao itemDao = new ItemDao();
     private final VendaDao vendaDao = new VendaDao();
     private final CompraDao compraDao = new CompraDao();
+    private final TotalVendasPorItem view;
+    private static LocalDateTime localDate;
     
     private final List<Item> items;
     
-    public TotalVendaItemController(TotalVendasPorItem view) {
+    public TotalVendaItemController(TotalVendasPorItem view) throws IOException, ClassNotFoundException, SQLException {
+        this.view = view;
         this.helper = new TotalVendaItemControllerHelper(view);
         items = itemDao.listar();
     }
 
     public void setarTela() {
         LocalDateTime data = LocalDateTime.now();
+        TotalVendaItemController.localDate = data;
         
         System.out.println(data);
         
@@ -53,18 +62,26 @@ public class TotalVendaItemController {
     }
 
     public void buscar() throws ParseException {
-        LocalDateTime data = this.helper.obterMesEANoSelecionado();
-        Item i = items.get(this.helper.itemSelecionado());
+        LocalDateTime dataB = this.helper.obterMesEANoSelecionado();
+        TotalVendaItemController.localDate = dataB;
         
-       //List<Venda> vendas = vendaDao.buscarPorMes(data);
-        
-       VendaItem vendaItems = this.compraDao.buscarComprasPorItem(data, i);
+        List<VendaItem> vendaItemsB = this.compraDao.buscarComprasPorItemList(dataB, items);
        
-       if(vendaItems != null){
-            this.helper.setarTabela(vendaItems, data);
+       if(vendaItemsB != null){
+            this.helper.setarTabela(vendaItemsB, dataB);
        }
        else
            this.helper.imprime("Nenhuma venda encontrada nesta data");
+        
+    }
+
+    public void salvarPdf() throws FileNotFoundException, DocumentException {
+        String data = Util.obterMesEAnoEmString(localDate);
+        String valorTotal = view.getjTextFieldValorTotal().getText();
+        List<List<String>> s = this.helper.matriz();
+        
+        ImprimirValorItens ivi = new ImprimirValorItens();
+        ivi.imprimirValorVendido("Total de vendas por item mensal",data, valorTotal, s);
         
     }
     

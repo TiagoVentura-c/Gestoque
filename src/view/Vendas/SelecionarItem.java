@@ -21,7 +21,7 @@ public class SelecionarItem extends javax.swing.JFrame {
      */
     
     private final SelecionarItensController controller;
-    public SelecionarItem() {
+    public SelecionarItem()  {
         initComponents();
         
         controller = new SelecionarItensController(this);

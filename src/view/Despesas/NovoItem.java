@@ -6,6 +6,9 @@
 package view.Despesas;
 
 import controller.Despesa.NovoItemController;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTextField;
 
 /**
@@ -99,9 +102,13 @@ public class NovoItem extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        // TODO add your handling code here:
-        //
-        controller.salvar();
+        try {
+            // TODO add your handling code here:
+            //
+            controller.salvar();
+        } catch (IOException ex) {
+            Logger.getLogger(NovoItem.class.getName()).log(Level.SEVERE, null, ex);
+        }
    
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
